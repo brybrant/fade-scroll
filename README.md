@@ -67,19 +67,42 @@ horizontalScroller.options.captureWheel = false;
 
 The constructor function takes two arguments:
 
-1. `element: HTMLElement | string`\
-  [HTMLElement](https://mdn.io/HTMLElement) or [querySelector string](https://mdn.io/querySelector)
+1. `element: HTMLElement | string` - *Required*\
+  [HTMLElement](https://mdn.io/HTMLElement) or [querySelector string](https://mdn.io/querySelector) (this will be the `content` of the Fade Scroller)
 
-2. `options?: Options`\
-  [Options object](#fade-scroller-options)
+2. `options?: object` - *Optional*\
+  [Fade Scroller options object](#fade-scroller-options)
 
-### Fade Scroller Options
+### Fade Scroller Properties
 
-- `hideScrollbar: boolean` - Default: `false`\
-  Hides the scrollbar when set to `true`
+- `content: HTMLElement`\
+  The element selected in the first argument of the constructor function
 
-- `captureWheel: boolean` - Default: `false` **(Horizontal only)**\
-  Capture [wheel events](https://mdn.io/WheelEvent) to translate mouse wheel spin to horizontal scroll movement when set to `true`
+- `scrollBar: HTMLDivElement`\
+  The element with overflow (contains `content` element)
+
+- `wrapper: HTMLDivElement`\
+  The outer element (contains `scrollBar` element)
+
+- `contentSize: number`\
+  The size of the `content` element (width if Horizontal, height if Vertical)
+
+- `wrapperSize: number`\
+  The size of the `wrapper` element (width if Horizontal, height if Vertical)
+
+- `overflowSize: number`\
+  The size of the overflow (`contentSize - wrapperSize`)
+
+- `scrollPosition: number`\
+  The scroll position of the `scrollBar` element (scrollLeft if Horizontal, scrollTop if Vertical)
+
+- `options: object`\
+  The Fade Scroller options object:
+  - `hideScrollbar: boolean` - Default: `false`\
+    Hide the scrollbar?
+  
+  - `captureWheel: boolean` ***(Horizontal only)*** - Default: `false`\
+    Capture [wheel events](https://mdn.io/WheelEvent) and translate to horizontal scroll movement?
 
 ### Fade Scroller Methods
 
@@ -87,7 +110,13 @@ The constructor function takes two arguments:
   Starts observing the Fade Scroller elements to apply the appropriate styles when the sizes change
 
 - `destroy()`\
-  Stops observing the Fade Scroller elements and removes all event listeners and styles
+  Stops observing the Fade Scroller elements and removes built-in event listeners and styles
+
+- `addScrollListener(callback: EventListener)`\
+  Add a `scroll` EventListener to the `scrollBar` element
+
+- `removeScrollListener(callback: EventListner)`\
+  Remove a `scroll` EventListener from the `scrollBar` element
 
 ---
 
