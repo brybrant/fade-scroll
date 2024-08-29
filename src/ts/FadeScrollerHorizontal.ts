@@ -23,8 +23,8 @@ export class Horizontal extends FadeScroller {
   readonly _fadeEnd: 'right-overflow';
 
   /** Creates a Horizontal Fade Scroller */
-  constructor(selector: HTMLElement | string, options?: Options) {
-    super(selector);
+  constructor(element: HTMLElement | string, options?: Options) {
+    super(element);
 
     this.wrapper.classList.add('fade-scroll--horizontal');
 

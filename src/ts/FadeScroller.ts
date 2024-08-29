@@ -55,23 +55,23 @@ export abstract class FadeScroller {
   abstract readonly _fadeEnd: string;
 
   /** Creates a Fade Scroller */
-  protected constructor(selector: HTMLElement | string) {
+  protected constructor(element: HTMLElement | string) {
     let content: HTMLElement | null;
 
-    if (selector instanceof HTMLElement) {
-      content = selector;
+    if (element instanceof HTMLElement) {
+      content = element;
     } else {
       try {
-        content = document.querySelector(selector);
+        content = document.querySelector(element);
       } catch {
         throw new SyntaxError(
-          `'${JSON.stringify(selector)}' is not a valid selector`,
+          `'${JSON.stringify(element)}' is not a valid selector`,
         );
       }
 
       if (content === null) {
         throw new Error(
-          `Cannot find an element matching the selector '${selector}'`,
+          `Cannot find an element matching the selector '${element}'`,
         );
       }
     }

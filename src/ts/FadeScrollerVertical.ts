@@ -21,8 +21,8 @@ export class Vertical extends FadeScroller {
   readonly _fadeEnd: 'bottom-overflow';
 
   /** Creates a Vertical Fade Scroller */
-  constructor(selector: HTMLElement | string, options?: Options) {
-    super(selector);
+  constructor(element: HTMLElement | string, options?: Options) {
+    super(element);
 
     this.wrapper.classList.add('fade-scroll--vertical');
 
