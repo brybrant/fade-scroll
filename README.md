@@ -4,7 +4,7 @@
 
 Fade Scroll is a tiny, zero-dependency cosmetic addon for scrollable content which adds subtle gradient masks to scrollable content.
 
-See the [demo page](brybrant.github.io/fade-scroll/) for an interactive demonstration.
+See the [demo page](https://brybrant.github.io/fade-scroll/) for an interactive demonstration.
 
 ## Install
 
