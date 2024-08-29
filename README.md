@@ -96,7 +96,7 @@ The constructor function takes two arguments:
   The size of the overflow (`contentSize - wrapperSize`)
 
 - `scrollPosition: number`\
-  The scroll position of the `scrollBar` element (scrollLeft if Horizontal, scrollTop if Vertical)
+  The scroll position of the `scrollBar` element ([`scrollLeft`](https://mdn.io/scrollLeft) if Horizontal, [`scrollTop`](https://mdn.io/scrollTop) if Vertical)
 
 - `options: object`\
   The Fade Scroller options object:
