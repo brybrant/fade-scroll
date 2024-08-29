@@ -1,0 +1,53 @@
+{
+  "name": "@brybrant/fade-scroll",
+  "author": "brybrant",
+  "license": "GPL-3.0-only",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "env NODE_ENV=development gulp dev",
+    "build": "env NODE_ENV=production gulp build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/brybrant/fade-scroll.git"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.25.4",
+    "@brybrant/configs": "github:brybrant/configs",
+    "@juggle/resize-observer": "^3.4.0",
+    "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "browser-sync": "^3.0.2",
+    "chalk": "^5.3.0",
+    "ejs": "^3.1.10",
+    "eslint": "^9.9.1",
+    "gulp": "^5.0.0",
+    "gulp-postcss": "^10.0.0",
+    "gulp-sass": "^5.1.0",
+    "postcss": "^8.4.41",
+    "postcss-reporter": "^7.1.0",
+    "rollup": "^4.21.1",
+    "sass": "^1.77.8",
+    "typescript-eslint": "^8.3.0"
+  },
+  "browserslist": [
+    "Chrome >= 48",
+    "Edge >= 79",
+    "ff >= 53",
+    "Opera >= 46",
+    "Safari >= 13",
+    "and_chr >= 25",
+    "and_ff >= 53",
+    "op_mob >= 80",
+    "ios_saf >= 7",
+    "Samsung >= 4",
+    "not dead"
+  ]
+}

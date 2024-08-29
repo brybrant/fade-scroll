@@ -1,0 +1,83 @@
+<h3>Table of Contents Navigation</h3>
+
+<div class='example-container'>
+  <div class='grid'>
+    <div class='grid__item toc'>
+      <div id='toc'><!-- Table of contents links will go here --></div>
+    </div>
+
+    <div class='grid__item toc-content'>
+      <div id='toc-content'>
+        <p id='section-1' class='title'>Section 1</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <p id='section-2' class='title'>Section 2</p>
+        <p>Suspendisse ac sagittis lacus. In sagittis eleifend risus quis ullamcorper.</p>
+        <p id='section-3' class='title'>Section 3</p>
+        <p>Cras vel nunc id purus pellentesque tincidunt nec convallis nisl.</p>
+        <p id='section-4' class='title'>Section 4</p>
+        <p>Duis nec volutpat est, eu vulputate est. Duis nec dictum ipsum.</p>
+        <p id='section-5' class='title'>Section 5</p>
+        <p>Aenean volutpat neque nec massa mattis facilisis eget nec erat.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    var tocElement = document.getElementById('toc');
+
+    var content = new FadeScroll.Vertical('#toc-content').mount();
+
+    var sections = document.querySelectorAll('.toc-content .title');
+
+    function scrollSection(event) {
+      event.preventDefault();
+
+      var thisSection = document.querySelector(this.hash);
+
+      content.scrollPosition = thisSection.offsetTop - 16;
+    }
+
+    var links = [];
+
+    for (var i = 0; i < sections.length; i++) {
+      var link = document.createElement('a');
+      link.href = `#${sections[i].id}`;
+      link.innerText = sections[i].innerText;
+      link.className = 'toc__link';
+      link.onclick = scrollSection;
+      tocElement.appendChild(link);
+      links.push(link);
+    }
+
+    links[0].classList.add('active');
+
+    var toc = new FadeScroll.Vertical(tocElement).mount();
+
+    content.addScrollListener(function(event) {
+      for (var i = 0; i < links.length; i++) {
+        links[i].classList.remove('active');
+      }
+
+      if (this.scrollTop <= 0) {
+        return links[0].classList.add('active');
+      }
+
+      var scrollBottom = this.scrollTop + content.wrapperSize;
+
+      if (scrollBottom >= content.contentSize) {
+        return links[links.length - 1].classList.add('active');
+      }
+
+      for (var i = 1; i < sections.length; i++) {
+        if (this.scrollTop < sections[i].offsetTop - 16) {
+          links[i - 1].classList.add('active');
+          break;
+        };
+      }
+    });
+
+    toc.scrollPosition = content.scrollPosition = 0;
+  })();
+</script>

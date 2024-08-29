@@ -1,0 +1,25 @@
+@use 'scss/variables' as *;
+@use 'scss/base';
+@use 'scss/typography';
+@use 'scss/layout';
+@use 'scss/breadcrumb';
+@use 'scss/tabs';
+@use 'scss/table-of-contents';
+@use 'scss/hamburger';
+
+.example-container {
+  position: relative;
+  height: 122px;
+  margin-top: 12px;
+  border-radius: 6px;
+  background: $grey-200;
+  color: $white-100;
+
+  .grid {
+    height: 100%;
+  }
+
+  .fade-scroll__content {
+    padding: 1px 5px;
+  }
+}

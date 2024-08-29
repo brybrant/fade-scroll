@@ -1,0 +1,60 @@
+@use 'variables' as *;
+
+.breadcrumb {
+  position: relative;
+  padding: 8px 20px;
+  background: $grey-200;
+  color: $white-100;
+  white-space: nowrap;
+
+  &:before, &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 0;
+    height: 0;
+  }
+
+  &:before {
+    right: 100%;
+    border-top: 20px solid $grey-200;
+    border-bottom: 20px solid $grey-200;
+    border-left: 10px solid transparent;
+  }
+
+  &:after {
+    left: 100%;
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent;
+    border-left: 10px solid $grey-200;
+  }
+
+  & ~ .breadcrumb {
+    margin-left: 20px;
+  }
+
+  &:first-child {
+    padding-left: 28px;
+    border-radius: 20px 0 0 20px;
+
+    &:before {
+      display: none;
+    }
+  }
+
+  &:last-child {
+    padding-right: 28px;
+    border-radius: 0 20px 20px 0;
+    background: $grey-100;
+    color: $white-200;
+
+    &:before {
+      border-top-color: $grey-100;
+      border-bottom-color: $grey-100;
+    }
+
+    &:after {
+      display: none;
+    }
+  }
+}

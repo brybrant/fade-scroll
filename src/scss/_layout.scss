@@ -1,0 +1,28 @@
+.grid__item {
+  display: inline-block;
+  vertical-align: top;
+  width: 50%;
+  height: 100%;
+}
+
+.grid {
+  position: relative;
+  display: flex;
+  flex-flow: row nowrap;
+
+  &.grid--inline {
+    display: inline-flex;
+  }
+
+  &.grid--gutter {
+    margin-left: -24px;
+
+    .grid__item {
+      padding-left: 24px;
+    }
+  }
+}
+
+.margin-top {
+  margin-top: 12px;
+}

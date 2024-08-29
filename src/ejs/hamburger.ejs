@@ -1,0 +1,104 @@
+<h3>Hamburger / Mobile Navigation</h3>
+
+<div class='example-container' style='overflow:hidden'>
+  <div id='hamburger-content'>
+    <div class='hamburger-page active' id='home'>
+      <p class='title'>Home</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    </div>
+    <div class='hamburger-page' id='products'>
+      <p class='title'>Products</p>
+      <p>Suspendisse ac sagittis lacus. In sagittis eleifend risus quis ullamcorper.</p>
+    </div>
+    <div class='hamburger-page' id='deals'>
+      <p class='title'>Deals</p>
+      <p>Cras vel nunc id purus pellentesque tincidunt nec convallis nisl.</p>
+    </div>
+    <div class='hamburger-page' id='contact'>
+      <p class='title'>Contact</p>
+      <p>Duis nec volutpat est, eu vulputate est. Duis nec dictum ipsum.</p>
+    </div>
+    <div class='hamburger-page' id='about'>
+      <p class='title'>About</p>
+      <p>Aenean volutpat neque nec massa mattis facilisis eget nec erat.</p>
+    </div>
+  </div>
+  <div id='hamburger-shroud'></div>
+  <div id='hamburger-menu-container'>
+    <div id='hamburger-menu'>
+      <a class='button hamburger-link active' href='#home'>Home</a>
+      <a class='button hamburger-link' href='#products'>Products</a>
+      <a class='button hamburger-link' href='#deals'>Deals</a>
+      <a class='button hamburger-link' href='#contact'>Contact</a>
+      <a class='button hamburger-link' href='#about'>About</a>
+    </div>
+    <button id='hamburger-button'>
+      <span id='hamburger-button-label'>Show navigation</span>
+      <div class='hamburger'></div>
+    </button>
+  </div>
+</div>
+
+<script>
+  (function() {
+    var menu = new FadeScroll.Vertical('#hamburger-menu').mount();
+
+    menu.scrollPosition = 0;
+
+    var menuContainer = document.getElementById('hamburger-menu-container');
+
+    var shroud = document.getElementById('hamburger-shroud');
+
+    var button = document.getElementById('hamburger-button');
+
+    var label = document.getElementById('hamburger-button-label');
+
+    button.onclick = function() {
+      label.innerText = (
+        menuContainer.classList.contains('active')
+          ? 'Show'
+          : 'Hide'
+        ) + ' navigation';
+      menuContainer.classList.toggle('active');
+      shroud.classList.toggle('active');
+      shroud.classList.add('visible');
+    }
+
+    var links = document.querySelectorAll('.hamburger-link');
+
+    var pages = document.querySelectorAll('.hamburger-page');
+
+    function activatePage(event) {
+      event.preventDefault();
+
+      if (this.classList.contains('active')) return;
+
+      for (var i = 0; i < pages.length; i++) {
+        pages[i].classList.remove('active');
+      }
+
+      document.querySelector(this.hash).classList.add('active');
+
+      for (var i = 0; i < links.length; i++) {
+        links[i].classList.remove('active');
+      }
+
+      this.classList.add('active');
+
+      menuContainer.classList.remove('active');
+      shroud.classList.remove('active');
+    }
+
+    for (var i = 0; i < links.length; i++) links[i].onclick = activatePage;
+
+    shroud.ontransitionend = function() {
+      if (shroud.classList.contains('active')) return;
+      shroud.classList.remove('visible');
+    }
+
+    shroud.onclick = function() {
+      menuContainer.classList.remove('active');
+      shroud.classList.remove('active');
+    }
+  })();
+</script>

@@ -1,0 +1,73 @@
+@use 'variables' as *;
+
+h1 {
+  margin: 0 0 24px;
+  font-size: 42px;
+  line-height: 48px;
+}
+
+h2 {
+  margin: 36px 0 0;
+  font-size: 30px;
+  line-height: 36px;
+}
+
+h3 {
+  margin: 36px 0 0;
+  font-size: 24px;
+  line-height: 24px;
+}
+
+p {
+  margin: 0;
+  line-height: 24px;
+
+  & ~ p {
+    margin-top: 24px;
+  }
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  position: relative;
+  margin-top: 12px;
+  padding-left: 12px;
+  line-height: 24px;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 9px;
+    left: 0;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+}
+
+code {
+  vertical-align: top;
+  padding: 1px 4px;
+  border-radius: 4px;
+  background: $grey-200;
+  font-size: 90%;
+  white-space: nowrap;
+}
+
+a {
+  color: #5af;
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  &:active {
+    color: #e64;
+  }
+}

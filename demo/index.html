@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'/>
+<meta name='viewport' content='width=device-width, initial-scale=1.0'/>
+<meta name='darkreader-lock'/>
+<title>Fade Scroll</title>
+<link rel='stylesheet' href='/fade-scroll.css'/>
+<link rel='stylesheet' href='/index.css'/>
+<script src='/index.js'></script>
+</head>
+<body>
+<h1>Fade Scroll Demo</h1>
+<h2>Basic Usage</h2>
+<div class='grid grid--gutter'>
+<div class='grid__item'>
+<h3>Horizontal</h3>
+<div class='example-container'>
+<div id='h-basic'>
+<p>Some <strong>Horizontal</strong> overflowing content&hellip;</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ac sagittis lacus. In sagittis eleifend risus quis ullamcorper. Cras vel nunc id purus pellentesque tincidunt nec convallis nisl.</p>
+<p>Duis nec volutpat est, eu vulputate est. Duis nec dictum ipsum. Aenean volutpat neque nec massa mattis facilisis eget nec erat. Nulla sed risus lobortis, eleifend mauris nec, hendrerit leo.</p>
+</div>
+</div>
+</div>
+<div class='grid__item'>
+<h3>Vertical</h3>
+<div class='example-container'>
+<div id='v-basic'>
+<p>Some <strong>Vertical</strong> overflowing content&hellip;</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ac sagittis lacus. In sagittis eleifend risus quis ullamcorper. Cras vel nunc id purus pellentesque tincidunt nec convallis nisl.</p>
+<p>Duis nec volutpat est, eu vulputate est. Duis nec dictum ipsum. Aenean volutpat neque nec massa mattis facilisis eget nec erat. Nulla sed risus lobortis, eleifend mauris nec, hendrerit leo.</p>
+</div>
+</div>
+</div>
+</div>
+<script>
+new FadeScroll.Horizontal('#h-basic').mount();
+new FadeScroll.Vertical('#v-basic').mount();
+</script>
+<hr/>
+<h2>Hidden Scrollbars</h2>
+<p>To hide the scrollbar, set&nbsp;<code>hideScrollbar: true</code> in the&nbsp;options.</p>
+<div class='grid grid--gutter'>
+<div class='grid__item'>
+<h3>Horizontal</h3>
+<div class='example-container'>
+<div id='h-hide'>
+<p>Some <strong>Horizontal</strong> overflowing content&hellip;</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ac sagittis lacus. In sagittis eleifend risus quis ullamcorper. Cras vel nunc id purus pellentesque tincidunt nec convallis nisl.</p>
+<p>Duis nec volutpat est, eu vulputate est. Duis nec dictum ipsum. Aenean volutpat neque nec massa mattis facilisis eget nec erat. Nulla sed risus lobortis, eleifend mauris nec, hendrerit leo.</p>
+</div>
+</div>
+</div>
+<div class='grid__item'>
+<h3>Vertical</h3>
+<div class='example-container'>
+<div id='v-hide'>
+<p>Some <strong>Vertical</strong> overflowing content&hellip;</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ac sagittis lacus. In sagittis eleifend risus quis ullamcorper. Cras vel nunc id purus pellentesque tincidunt nec convallis nisl.</p>
+<p>Duis nec volutpat est, eu vulputate est. Duis nec dictum ipsum. Aenean volutpat neque nec massa mattis facilisis eget nec erat. Nulla sed risus lobortis, eleifend mauris nec, hendrerit leo.</p>
+</div>
+</div>
+</div>
+</div>
+<script>
+new FadeScroll.Horizontal('#h-hide', {
+hideScrollbar: true,
+}).mount();
+new FadeScroll.Vertical('#v-hide', {
+hideScrollbar: true,
+}).mount();
+</script>
+<p>But how to scroll sideways without a visible scrollbar? Some&nbsp;input devices come with mechanisms to scroll sideways &ndash; otherwise the <em>&lsquo;usual&rsquo;</em> way to scroll sideways is by holding the <strong>Shift</strong>&nbsp;key while spinning the mouse&nbsp;wheel, but there is another&nbsp;way&hellip;</p>
+<hr/>
+<h2>Sideways Scrolling with Mouse&nbsp;Wheel</h2>
+<p>It might seem intuitive to scroll sideways by using the mouse&nbsp;wheel normally, especially when the scrollbar is not&nbsp;visible. To&nbsp;enable this behaviour, set&nbsp;<code>captureWheel: true</code> in the&nbsp;options. This will translate mouse&nbsp;wheel movement from vertical to&nbsp;horizontal.</p>
+<div class='example-container'>
+<div id='mousewheel'>
+<p>Some <strong>Horizontal</strong> overflowing content&hellip;</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ac sagittis lacus. In sagittis eleifend risus quis ullamcorper. Cras vel nunc id purus pellentesque tincidunt nec convallis nisl.</p>
+<p>Duis nec volutpat est, eu vulputate est. Duis nec dictum ipsum. Aenean volutpat neque nec massa mattis facilisis eget nec erat. Nulla sed risus lobortis, eleifend mauris nec, hendrerit leo.</p>
+</div>
+</div>
+<script>
+new FadeScroll.Horizontal('#mousewheel', {
+hideScrollbar: true,
+captureWheel: true,
+}).mount();
+</script>
+<hr/>
+<h2>Horizontal Examples</h2>
+<h3>Breadcrumb Navigation</h3>
+<div class='margin-top'>
+<div id='breadcrumb'>
+<div class='grid grid--inline'>
+<div class='breadcrumb'>Home</div>
+<div class='breadcrumb'>Code</div>
+<div class='breadcrumb'>Web Development</div>
+<div class='breadcrumb'>JavaScript</div>
+<div class='breadcrumb'>Front-End</div>
+<div class='breadcrumb'>Fade Scroll</div>
+</div>
+</div>
+</div>
+<script>
+(function() {
+var breadcrumb = new FadeScroll.Horizontal('#breadcrumb', {
+hideScrollbar: true,
+captureWheel: true,
+}).mount();
+breadcrumb.scrollPosition = 0;
+})();
+</script>
+<h3>Tab Navigation</h3>
+<div class='tabs-container'>
+<div id='tabs'>
+<div class='grid grid--inline'>
+<button class='tab active'>General</button>
+<button class='tab'>Books</button>
+<button class='tab'>Music</button>
+<button class='tab'>Games</button>
+<button class='tab'>Computers</button>
+<button class='tab'>Tools</button>
+<button class='tab'>Electronics</button>
+<button class='tab'>Lighting</button>
+</div>
+</div>
+</div>
+<script>
+(function() {
+var tabNavigation = new FadeScroll.Horizontal('#tabs', {
+hideScrollbar: true,
+captureWheel: true,
+}).mount();
+tabNavigation.scrollPosition = 0;
+var tabs = document.querySelectorAll('.tab');
+function activateTab() {
+var tabPosition = this.offsetWidth * 0.5 + this.offsetLeft;
+var halfWrapperSize = tabNavigation.wrapperSize * 0.5;
+tabNavigation.scrollPosition = tabPosition - halfWrapperSize;
+if (this.classList.contains('active')) return;
+for (var i = 0; i < tabs.length; i++) {
+tabs[i].classList.remove('active');
+}
+this.classList.add('active');
+}
+for (var i = 0; i < tabs.length; i++) tabs[i].onclick = activateTab;
+})();
+</script>
+<hr/>
+<h2>Vertical Examples</h2>
+<h3>Table of Contents Navigation</h3>
+<div class='example-container'>
+<div class='grid'>
+<div class='grid__item toc'>
+<div id='toc'><!-- Table of contents links will go here --></div>
+</div>
+<div class='grid__item toc-content'>
+<div id='toc-content'>
+<p id='section-1' class='title'>Section 1</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+<p id='section-2' class='title'>Section 2</p>
+<p>Suspendisse ac sagittis lacus. In sagittis eleifend risus quis ullamcorper.</p>
+<p id='section-3' class='title'>Section 3</p>
+<p>Cras vel nunc id purus pellentesque tincidunt nec convallis nisl.</p>
+<p id='section-4' class='title'>Section 4</p>
+<p>Duis nec volutpat est, eu vulputate est. Duis nec dictum ipsum.</p>
+<p id='section-5' class='title'>Section 5</p>
+<p>Aenean volutpat neque nec massa mattis facilisis eget nec erat.</p>
+</div>
+</div>
+</div>
+</div>
+<script>
+(function() {
+var tocElement = document.getElementById('toc');
+var content = new FadeScroll.Vertical('#toc-content').mount();
+var sections = document.querySelectorAll('.toc-content .title');
+function scrollSection(event) {
+event.preventDefault();
+var thisSection = document.querySelector(this.hash);
+content.scrollPosition = thisSection.offsetTop - 16;
+}
+var links = [];
+for (var i = 0; i < sections.length; i++) {
+var link = document.createElement('a');
+link.href = `#${sections[i].id}`;
+link.innerText = sections[i].innerText;
+link.className = 'toc__link';
+link.onclick = scrollSection;
+tocElement.appendChild(link);
+links.push(link);
+}
+links[0].classList.add('active');
+var toc = new FadeScroll.Vertical(tocElement).mount();
+content.addScrollListener(function(event) {
+for (var i = 0; i < links.length; i++) {
+links[i].classList.remove('active');
+}
+if (this.scrollTop <= 0) {
+return links[0].classList.add('active');
+}
+var scrollBottom = this.scrollTop + content.wrapperSize;
+if (scrollBottom >= content.contentSize) {
+return links[links.length - 1].classList.add('active');
+}
+for (var i = 1; i < sections.length; i++) {
+if (this.scrollTop < sections[i].offsetTop - 16) {
+links[i - 1].classList.add('active');
+break;
+};
+}
+});
+toc.scrollPosition = content.scrollPosition = 0;
+})();
+</script>
+<h3>Hamburger / Mobile Navigation</h3>
+<div class='example-container' style='overflow:hidden'>
+<div id='hamburger-content'>
+<div class='hamburger-page active' id='home'>
+<p class='title'>Home</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+</div>
+<div class='hamburger-page' id='products'>
+<p class='title'>Products</p>
+<p>Suspendisse ac sagittis lacus. In sagittis eleifend risus quis ullamcorper.</p>
+</div>
+<div class='hamburger-page' id='deals'>
+<p class='title'>Deals</p>
+<p>Cras vel nunc id purus pellentesque tincidunt nec convallis nisl.</p>
+</div>
+<div class='hamburger-page' id='contact'>
+<p class='title'>Contact</p>
+<p>Duis nec volutpat est, eu vulputate est. Duis nec dictum ipsum.</p>
+</div>
+<div class='hamburger-page' id='about'>
+<p class='title'>About</p>
+<p>Aenean volutpat neque nec massa mattis facilisis eget nec erat.</p>
+</div>
+</div>
+<div id='hamburger-shroud'></div>
+<div id='hamburger-menu-container'>
+<div id='hamburger-menu'>
+<a class='button hamburger-link active' href='#home'>Home</a>
+<a class='button hamburger-link' href='#products'>Products</a>
+<a class='button hamburger-link' href='#deals'>Deals</a>
+<a class='button hamburger-link' href='#contact'>Contact</a>
+<a class='button hamburger-link' href='#about'>About</a>
+</div>
+<button id='hamburger-button'>
+<span id='hamburger-button-label'>Show navigation</span>
+<div class='hamburger'></div>
+</button>
+</div>
+</div>
+<script>
+(function() {
+var menu = new FadeScroll.Vertical('#hamburger-menu').mount();
+menu.scrollPosition = 0;
+var menuContainer = document.getElementById('hamburger-menu-container');
+var shroud = document.getElementById('hamburger-shroud');
+var button = document.getElementById('hamburger-button');
+var label = document.getElementById('hamburger-button-label');
+button.onclick = function() {
+label.innerText = (
+menuContainer.classList.contains('active')
+? 'Show'
+: 'Hide'
+) + ' navigation';
+menuContainer.classList.toggle('active');
+shroud.classList.toggle('active');
+shroud.classList.add('visible');
+}
+var links = document.querySelectorAll('.hamburger-link');
+var pages = document.querySelectorAll('.hamburger-page');
+function activatePage(event) {
+event.preventDefault();
+if (this.classList.contains('active')) return;
+for (var i = 0; i < pages.length; i++) {
+pages[i].classList.remove('active');
+}
+document.querySelector(this.hash).classList.add('active');
+for (var i = 0; i < links.length; i++) {
+links[i].classList.remove('active');
+}
+this.classList.add('active');
+menuContainer.classList.remove('active');
+shroud.classList.remove('active');
+}
+for (var i = 0; i < links.length; i++) links[i].onclick = activatePage;
+shroud.ontransitionend = function() {
+if (shroud.classList.contains('active')) return;
+shroud.classList.remove('visible');
+}
+shroud.onclick = function() {
+menuContainer.classList.remove('active');
+shroud.classList.remove('active');
+}
+})();
+</script>
+</body>
+</html>

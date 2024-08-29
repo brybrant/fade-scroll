@@ -1,0 +1,47 @@
+<h3>Tab Navigation</h3>
+
+<div class='tabs-container'>
+  <div id='tabs'>
+    <div class='grid grid--inline'>
+      <button class='tab active'>General</button>
+      <button class='tab'>Books</button>
+      <button class='tab'>Music</button>
+      <button class='tab'>Games</button>
+      <button class='tab'>Computers</button>
+      <button class='tab'>Tools</button>
+      <button class='tab'>Electronics</button>
+      <button class='tab'>Lighting</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    var tabNavigation = new FadeScroll.Horizontal('#tabs', {
+      hideScrollbar: true,
+      captureWheel: true,
+    }).mount();
+
+    tabNavigation.scrollPosition = 0;
+
+    var tabs = document.querySelectorAll('.tab');
+
+    function activateTab() {
+      var tabPosition = this.offsetWidth * 0.5 + this.offsetLeft;
+
+      var halfWrapperSize = tabNavigation.wrapperSize * 0.5;
+
+      tabNavigation.scrollPosition = tabPosition - halfWrapperSize;
+
+      if (this.classList.contains('active')) return;
+
+      for (var i = 0; i < tabs.length; i++) {
+        tabs[i].classList.remove('active');
+      }
+
+      this.classList.add('active');
+    }
+
+    for (var i = 0; i < tabs.length; i++) tabs[i].onclick = activateTab;
+  })();
+</script>

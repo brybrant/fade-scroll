@@ -1,0 +1,145 @@
+@use 'variables' as *;
+
+#hamburger-content {
+  padding: 1px 5px;
+}
+
+.hamburger-page {
+  display: none;
+
+  &.active {
+    display: initial;
+  }
+}
+
+#hamburger-shroud {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(#000, 0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 333ms ease-in;
+  will-change: opacity;
+
+  &.active {
+    opacity: 1;
+    transition-timing-function: ease-out;
+  }
+
+  &.visible {
+    pointer-events: auto;
+  }
+}
+
+#hamburger-menu-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: $grey-200;
+  transition: transform 333ms ease-in;
+  transform: translateX(100%);
+  will-change: transform;
+
+  &.active {
+    transition-timing-function: ease-out;
+    transform: translateX(0);
+  }
+}
+
+#hamburger-menu {
+  display: flex;
+  flex-flow: column nowrap;
+  padding: 0;
+}
+
+.hamburger-link {
+  padding: 5px 12px;
+
+  &:hover {
+    background: $grey-500;
+    color: $white-300;
+  }
+
+  &:active {
+    background: $grey-100;
+    color: $white-100;
+  }
+
+  &.active {
+    background: $grey-100;
+    color: $white-300;
+  }
+}
+
+#hamburger-button {
+  position: absolute;
+  top: 8px;
+  left: (-48px - 8px);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: $grey-400;
+  color: $white-200;
+  outline: 0;
+
+  &:hover {
+    background: $grey-500;
+    color: $white-300;
+  }
+
+  &:active {
+    background: $grey-100;
+    color: $white-100;
+  }
+}
+
+#hamburger-button-label {
+  font-size: 0;
+  line-height: 0;
+}
+
+.hamburger {
+  top: 22px;
+  left: 12px;
+
+  &, &:before, &:after {
+    content: '';
+    position: absolute;
+    width: 24px;
+    height: 3px;
+    border-radius: 1.5px;
+    background: currentColor;
+    transition: transform 333ms ease-in;
+    will-change: transform;
+  }
+
+  &:before {
+    bottom: 8px;
+    left: 0;
+  }
+
+  &:after {
+    top: 8px;
+    left: 0;
+  }
+
+  #hamburger-menu-container.active & {
+    transform: rotate(45deg);
+
+    &, &:before, &:after {
+      transition-timing-function: ease-out;
+    }
+
+    &:before {
+      transform: rotate(90deg) translateX(8px);
+    }
+
+    &:after {
+      transform: translateY(-8px);
+    }
+  }
+}
