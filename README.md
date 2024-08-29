@@ -73,6 +73,8 @@ The constructor function takes two arguments:
 2. `options?: object` - *Optional*\
   Fade Scroller options object
 
+...and returns a Fade Scroller:
+
 ### Fade Scroller Properties
 
 - `content: HTMLElement`\
@@ -112,10 +114,10 @@ The constructor function takes two arguments:
 - `destroy()`\
   Stops observing the Fade Scroller elements and removes built-in event listeners and styles
 
-- `addScrollListener(callback: EventListener)`\
+- `addScrollListener( callback: EventListener )`\
   Add a `scroll` EventListener to the `scrollBar` element
 
-- `removeScrollListener(callback: EventListner)`\
+- `removeScrollListener( callback: EventListner )`\
   Remove a `scroll` EventListener from the `scrollBar` element
 
 ---
