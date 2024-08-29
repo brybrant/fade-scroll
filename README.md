@@ -117,7 +117,7 @@ The constructor function takes two arguments:
 - `addScrollListener( callback: EventListener )`\
   Add a `scroll` EventListener to the `scrollBar` element
 
-- `removeScrollListener( callback: EventListner )`\
+- `removeScrollListener( callback: EventListener )`\
   Remove a `scroll` EventListener from the `scrollBar` element
 
 ---
