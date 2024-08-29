@@ -67,26 +67,26 @@ horizontalScroller.options.captureWheel = false;
 
 The constructor function takes two arguments:
 
-1. `element: HTMLElement | string`\
+1. `element: HTMLElement | string`{:.ts}\
   [HTMLElement](https://mdn.io/HTMLElement) or [querySelector string](https://mdn.io/querySelector)
 
-2. `options?: Options`\
+2. `options?: Options`{:.ts}\
   [Options object](#fade-scroller-options)
 
 ### Fade Scroller Options
 
-- `hideScrollbar: boolean` - Default: `false`\
+- `hideScrollbar: boolean`{:.ts} - Default: `false`\
   Hides the scrollbar when set to `true`
 
-- `captureWheel: boolean` - Default: `false` **(Horizontal only)**\
+- `captureWheel: boolean`{:.ts} - Default: `false` **(Horizontal only)**\
   Capture [wheel events](https://mdn.io/WheelEvent) to translate mouse wheel spin to horizontal scroll movement when set to `true`
 
 ### Fade Scroller Methods
 
-- `mount()`\
+- `mount()`{:.js}\
   Starts observing the Fade Scroller elements to apply the appropriate styles when the sizes change
 
-- `destroy()`\
+- `destroy()`{:.js}\
   Stops observing the Fade Scroller elements and removes all event listeners and styles
 
 ---
