@@ -7,7 +7,9 @@
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "files": [
-    "dist"
+    "dist/fade-scroll.css",
+    "dist/index.js",
+    "dist/index.mjs"
   ],
   "scripts": {
     "dev": "env NODE_ENV=development gulp dev",

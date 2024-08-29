@@ -19,7 +19,7 @@ export default (/*ctx*/) => {
   return {
     plugins: [
       purgeCSSPlugin({
-        content: ['./demo/index.html', './src/**/*.js'],
+        content: ['./dist/index.html', './src/**/*.ts'],
         safelist: ['&', ':hover', ':active', ':first-child', ':last-child'],
       }),
       cssnano(cssnanoConfig),

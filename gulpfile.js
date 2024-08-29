@@ -67,7 +67,7 @@ async function compileSCSS(cb) {
     src(scssFiles)
       .pipe(sass.sync().on('error', sass.logError))
       .pipe(postcss())
-      .pipe(dest('./demo')),
+      .pipe(dest('./dist')),
   ]).finally(() => {
     cb();
   });
@@ -191,7 +191,7 @@ function compileEJS(cb) {
         return cb();
       }
 
-      writeFileSync('./demo/index.html', html);
+      writeFileSync('./dist/index.html', html);
 
       cb();
     },
@@ -204,7 +204,7 @@ function compileEJS(cb) {
  */
 function browserSyncTask(cb) {
   bs.init({
-    files: ['./demo', './dist'],
+    files: ['./dist'],
     ghostMode: false,
     host: '127.0.0.1',
     online: false,
@@ -212,7 +212,7 @@ function browserSyncTask(cb) {
     port: 3000,
     reloadDebounce: 2000,
     server: {
-      baseDir: ['demo', 'dist'],
+      baseDir: ['dist'],
     },
     ui: false,
   });
