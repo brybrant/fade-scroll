@@ -17,7 +17,7 @@ $ npm i github:brybrant/fade-scroll
 ```html
 <html>
   <head>
-    <link rel='stylesheet' href='/fade-scroll.css'/>
+    <link rel='stylesheet' href='fade-scroll.css'/>
   </head>
   <body>
     <div id='horizontal'>
@@ -28,7 +28,7 @@ $ npm i github:brybrant/fade-scroll
       <p>Some vertical overflowing content...</p>
     </div>
 
-    <script type='module' src='/index.js'></script>
+    <script type='module' src='index.js'></script>
   </body>
 </html>
 ```
