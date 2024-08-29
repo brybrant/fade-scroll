@@ -68,10 +68,10 @@ horizontalScroller.options.captureWheel = false;
 The constructor function takes two arguments:
 
 1. `element: HTMLElement | string` - *Required*\
-  [HTMLElement](https://mdn.io/HTMLElement) or [querySelector string](https://mdn.io/querySelector) (this will be the `content` of the Fade Scroller)
+  [HTMLElement](https://mdn.io/HTMLElement) or [querySelector string](https://mdn.io/querySelector) *(this will be the `content` of the Fade Scroller)*
 
 2. `options?: object` - *Optional*\
-  [Fade Scroller options object](#fade-scroller-options)
+  Fade Scroller options object
 
 ### Fade Scroller Properties
 
