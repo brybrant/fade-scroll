@@ -20,7 +20,6 @@
   "devDependencies": {
     "@babel/preset-env": "^7.25.4",
     "@brybrant/configs": "github:brybrant/configs",
-    "@juggle/resize-observer": "^3.4.0",
     "@rollup/plugin-babel": "^6.0.4",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^11.1.6",
