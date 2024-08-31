@@ -60,22 +60,19 @@
         links[i].classList.remove('active');
       }
 
-      if (this.scrollTop <= 0) {
-        return links[0].classList.add('active');
-      }
+      if (this.scrollTop <= 0) return links[0].classList.add('active');
 
-      var scrollBottom = this.scrollTop + content.wrapperSize;
-
-      if (scrollBottom >= content.contentSize) {
+      if (this.scrollTop + content.wrapperSize >= content.contentSize) {
         return links[links.length - 1].classList.add('active');
       }
 
       for (var i = 1; i < sections.length; i++) {
         if (this.scrollTop < sections[i].offsetTop - 16) {
-          links[i - 1].classList.add('active');
-          break;
-        };
+          return links[i - 1].classList.add('active');
+        }
       }
+
+      links[links.length - 1].classList.add('active');
     });
 
     toc.scrollPosition = content.scrollPosition = 0;
