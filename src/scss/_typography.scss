@@ -1,7 +1,7 @@
 @use 'variables' as *;
 
 h1 {
-  margin: 0 0 24px;
+  margin: 0;
   font-size: 42px;
   line-height: 48px;
 }
@@ -60,13 +60,14 @@ code {
 }
 
 a {
-  color: #5af;
+  color: #6ae;
+  text-decoration: none;
 
   &:hover {
-    text-decoration: none;
+    color: #9ce;
   }
 
-  &:active {
-    color: #e64;
+  &[target=_blank]:after {
+    content: ' \2197';
   }
 }

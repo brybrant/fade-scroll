@@ -11,8 +11,12 @@
 <script src='index.js'></script>
 </head>
 <body>
-<h1>Fade Scroll Demo</h1>
-<h2>Basic Usage</h2>
+<h1>Fade Scroll <a class='github' href='https://github.com/brybrant/fade-scroll' target='_blank' title='GitHub'>
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 470 470'>
+<path d='m235.19,0C105.14,0,0,105.91,0,236.94c0,104.74,67.37,193.4,160.82,224.78,11.68,2.36,15.96-5.1,15.96-11.37,0-5.49-.39-24.32-.39-43.94-65.43,14.12-79.05-28.25-79.05-28.25-10.51-27.46-26.09-34.52-26.09-34.52-21.41-14.51,1.56-14.51,1.56-14.51,23.75,1.57,36.22,24.32,36.22,24.32,21.02,36.09,54.9,25.89,68.53,19.61,1.94-15.3,8.18-25.89,14.8-31.77-52.18-5.49-107.08-25.89-107.08-116.9,0-25.89,9.34-47.07,24.14-63.55-2.33-5.88-10.51-30.21,2.34-62.77,0,0,19.86-6.28,64.64,24.32,19.17-5.19,38.94-7.82,58.8-7.85,19.86,0,40.1,2.75,58.8,7.85,44.78-30.6,64.64-24.32,64.64-24.32,12.85,32.56,4.67,56.88,2.33,62.77,15.19,16.47,24.14,37.66,24.14,63.55,0,91.01-54.9,111.02-107.47,116.9,8.57,7.45,15.96,21.57,15.96,43.93,0,31.77-.39,57.27-.39,65.12,0,6.28,4.28,13.73,15.96,11.38,93.45-31.39,160.82-120.04,160.82-224.78C470.38,105.91,364.86,0,235.19,0Z'/>
+</svg>
+</a></h1>
+<h2><a href='https://github.com/brybrant/fade-scroll/blob/master/src/ejs/basic-usage.ejs' target='_blank'>Basic Usage</a></h2>
 <div class='grid grid--gutter'>
 <div class='grid__item'>
 <h3>Horizontal</h3>
@@ -40,7 +44,7 @@ new FadeScroll.Horizontal('#h-basic').mount();
 new FadeScroll.Vertical('#v-basic').mount();
 </script>
 <hr/>
-<h2>Hidden Scrollbars</h2>
+<h2><a href='https://github.com/brybrant/fade-scroll/blob/master/src/ejs/hidden-scrollbars.ejs' target='_blank'>Hidden Scrollbars</a></h2>
 <p>To hide the scrollbar, set&nbsp;<code>hideScrollbar: true</code> in the&nbsp;options.</p>
 <div class='grid grid--gutter'>
 <div class='grid__item'>
@@ -74,7 +78,7 @@ hideScrollbar: true,
 </script>
 <p>But how to scroll sideways without a visible scrollbar? Some&nbsp;input devices come with a mechanism to scroll sideways &mdash; otherwise the <em>&ldquo;usual&rdquo;</em> way to scroll sideways is by holding the <strong>Shift</strong>&nbsp;key while spinning the mouse&nbsp;wheel, but there is another&nbsp;way&hellip;</p>
 <hr/>
-<h2>Sideways Scrolling with Mouse&nbsp;Wheel</h2>
+<h2><a href='https://github.com/brybrant/fade-scroll/blob/master/src/ejs/sideways-scrolling.ejs' target='_blank'>Sideways Scrolling with Mouse&nbsp;Wheel</a></h2>
 <p>Users may prefer to scroll sideways by using the mouse&nbsp;wheel normally, especially when the scrollbar is not&nbsp;visible. To&nbsp;enable this behaviour, set&nbsp;<code>captureWheel: true</code> in the&nbsp;options. This will translate mouse&nbsp;wheel movement to horizontal&nbsp;scrolling.</p>
 <div class='example-container'>
 <div id='mousewheel'>
@@ -91,7 +95,7 @@ captureWheel: true,
 </script>
 <hr/>
 <h2>Horizontal Examples</h2>
-<h3>Breadcrumb Navigation</h3>
+<h3><a href='https://github.com/brybrant/fade-scroll/blob/master/src/ejs/breadcrumb.ejs' target='_blank'>Breadcrumb Navigation</a></h3>
 <div class='margin-top'>
 <div id='breadcrumb'>
 <div class='grid grid--inline'>
@@ -113,7 +117,7 @@ captureWheel: true,
 breadcrumb.scrollPosition = 0;
 })();
 </script>
-<h3>Tab Navigation</h3>
+<h3><a href='https://github.com/brybrant/fade-scroll/blob/master/src/ejs/tabs.ejs' target='_blank'>Tab Navigation</a></h3>
 <div class='tabs-container'>
 <div id='tabs'>
 <div class='grid grid--inline'>
@@ -141,9 +145,7 @@ var tabPosition = this.offsetWidth * 0.5 + this.offsetLeft;
 var halfWrapperSize = tabNavigation.wrapperSize * 0.5;
 tabNavigation.scrollPosition = tabPosition - halfWrapperSize;
 if (this.classList.contains('active')) return;
-for (var i = 0; i < tabs.length; i++) {
-tabs[i].classList.remove('active');
-}
+for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove('active');
 this.classList.add('active');
 }
 for (var i = 0; i < tabs.length; i++) tabs[i].onclick = activateTab;
@@ -151,7 +153,7 @@ for (var i = 0; i < tabs.length; i++) tabs[i].onclick = activateTab;
 </script>
 <hr/>
 <h2>Vertical Examples</h2>
-<h3>Table of Contents Navigation</h3>
+<h3><a href='https://github.com/brybrant/fade-scroll/blob/master/src/ejs/table-of-contents.ejs' target='_blank'>Table of Contents Navigation</a></h3>
 <div class='example-container'>
 <div class='grid'>
 <div class='grid__item toc'>
@@ -199,24 +201,21 @@ content.addScrollListener(function(event) {
 for (var i = 0; i < links.length; i++) {
 links[i].classList.remove('active');
 }
-if (this.scrollTop <= 0) {
-return links[0].classList.add('active');
-}
-var scrollBottom = this.scrollTop + content.wrapperSize;
-if (scrollBottom >= content.contentSize) {
+if (this.scrollTop <= 0) return links[0].classList.add('active');
+if (this.scrollTop + content.wrapperSize >= content.contentSize) {
 return links[links.length - 1].classList.add('active');
 }
 for (var i = 1; i < sections.length; i++) {
 if (this.scrollTop < sections[i].offsetTop - 16) {
-links[i - 1].classList.add('active');
-break;
-};
+return links[i - 1].classList.add('active');
 }
+}
+links[links.length - 1].classList.add('active');
 });
 toc.scrollPosition = content.scrollPosition = 0;
 })();
 </script>
-<h3>Hamburger / Mobile Navigation</h3>
+<h3><a href='https://github.com/brybrant/fade-scroll/blob/master/src/ejs/hamburger.ejs' target='_blank'>Hamburger / Mobile Navigation</a></h3>
 <div class='example-container' style='overflow:hidden'>
 <div id='hamburger-content'>
 <div class='hamburger-page active' id='home'>

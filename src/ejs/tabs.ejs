@@ -1,4 +1,4 @@
-<h3>Tab Navigation</h3>
+<h3><a href='https://github.com/brybrant/fade-scroll/blob/master/src/ejs/tabs.ejs' target='_blank'>Tab Navigation</a></h3>
 
 <div class='tabs-container'>
   <div id='tabs'>
@@ -35,9 +35,7 @@
 
       if (this.classList.contains('active')) return;
 
-      for (var i = 0; i < tabs.length; i++) {
-        tabs[i].classList.remove('active');
-      }
+      for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove('active');
 
       this.classList.add('active');
     }
