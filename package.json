@@ -2,18 +2,20 @@
   "name": "@brybrant/fade-scroll",
   "author": "brybrant",
   "license": "GPL-3.0-only",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "type": "module",
+  "types": "dist/index.d.ts",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "files": [
     "dist/fade-scroll.css",
+    "dist/index.d.ts",
     "dist/index.js",
     "dist/index.mjs"
   ],
   "scripts": {
     "dev": "env NODE_ENV=development gulp dev",
-    "build": "env NODE_ENV=production gulp build"
+    "build": "env NODE_ENV=production gulp build && dts-bundle-generator --umd-module-name FadeScroll --no-banner -o dist/index.d.ts src/index.ts"
   },
   "repository": {
     "type": "git",
@@ -27,6 +29,7 @@
     "@rollup/plugin-typescript": "^11.1.6",
     "browser-sync": "^3.0.2",
     "chalk": "^5.3.0",
+    "dts-bundle-generator": "^9.5.1",
     "ejs": "^3.1.10",
     "eslint": "^9.9.1",
     "gulp": "^5.0.0",

@@ -3,10 +3,16 @@ import type { Horizontal } from './FadeScrollerHorizontal';
 
 /** Horizontal Fade Scroll options object */
 export interface FadeScrollOptionsH extends Options {
-  /** Hide the scrollbar? */
+  /**
+   * Hide the scrollbar?
+   * @default false
+   */
   hideScrollbar: boolean;
 
-  /** Enable mousewheel event capture? */
+  /**
+   * Enable mousewheel event capture?
+   * @default false
+   */
   captureWheel: boolean;
 }
 

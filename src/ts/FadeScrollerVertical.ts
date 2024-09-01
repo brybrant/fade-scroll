@@ -1,4 +1,3 @@
-import type { Options } from './FadeScroller';
 import type { FadeScrollOptionsV } from './OptionsVertical';
 
 import {
@@ -13,7 +12,6 @@ import { optionsVertical } from './OptionsVertical';
  * @access public
  */
 export class Vertical extends FadeScroller {
-  /** - Options object */
   readonly options: FadeScrollOptionsV;
 
   readonly _fadeStart: 'top-overflow';
@@ -21,7 +19,7 @@ export class Vertical extends FadeScroller {
   readonly _fadeEnd: 'bottom-overflow';
 
   /** Creates a Vertical Fade Scroller */
-  constructor(element: HTMLElement | string, options?: Options) {
+  constructor(element: HTMLElement | string, options?: FadeScrollOptionsV) {
     super(element);
 
     this.wrapper.classList.add('fade-scroll--vertical');
@@ -49,6 +47,7 @@ export class Vertical extends FadeScroller {
     return this.scrollBar.scrollTop;
   }
 
+  /** - `scrollTop` value of `scrollBar` element */
   public set scrollPosition(number: number) {
     if (smoothScrollSupported) {
       this.scrollBar.scroll({

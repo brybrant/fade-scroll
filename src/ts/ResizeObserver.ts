@@ -30,7 +30,7 @@ export let resizeObserver = (function () {
 })();
 
 /**
- * Set the ResizeObserver polyfill
+ * Set the `ResizeObserver` polyfill
  * @access public
  */
 export function setResizeObserver(polyfill: ResizeObserver) {

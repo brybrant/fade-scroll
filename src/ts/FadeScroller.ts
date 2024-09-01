@@ -1,3 +1,5 @@
+import type { FadeScrollOptionsH } from './OptionsHorizontal';
+import type { FadeScrollOptionsV } from './OptionsVertical';
 import type { Horizontal } from './FadeScrollerHorizontal';
 import type { Vertical } from './FadeScrollerVertical';
 
@@ -47,6 +49,9 @@ export abstract class FadeScroller {
 
   /** - Resize Observer */
   protected readonly _observer: ResizeObserver;
+  
+  /** - Options object */
+  abstract readonly options: FadeScrollOptionsH | FadeScrollOptionsV;
 
   /** - Class if `scrollPosition > 0` */
   abstract readonly _fadeStart: string;
@@ -138,12 +143,19 @@ export abstract class FadeScroller {
    */
   abstract get scrollPosition(): number;
 
+  /** - Starts observing the `content` and `wrapper` elements to apply the appropriate styles when the sizes change */
   public mount() {
     this._observer.observe(this.wrapper);
     this._observer.observe(this.content);
 
     return this;
   }
+
+  /**
+   * - Stops observing the `content` and `wrapper` elements
+   * - Removes built-in event listeners and styles
+   */
+  abstract destroy(): void
 
   /** Add scroll event listener */
   public addScrollListener(callback: EventListener) {

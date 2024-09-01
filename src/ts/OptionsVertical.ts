@@ -3,7 +3,10 @@ import type { Vertical } from './FadeScrollerVertical';
 
 /** Vertical Fade Scroll options object */
 export interface FadeScrollOptionsV extends Options {
-  /** Hide the scrollbar? */
+  /**
+   * Hide the scrollbar?
+   * @default false
+   */
   hideScrollbar: boolean;
 }
 

@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
-    "module": "ESNext",
+    "declaration": true,
+    "emitDeclarationOnly": true,
     "moduleResolution": "Bundler",
     "strict": true,
     "target": "ES6"
   },
-  "include": ["**/*.ts"]
+  "include": ["./src/**/*.ts"]
 }
