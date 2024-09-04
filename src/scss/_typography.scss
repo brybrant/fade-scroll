@@ -1,5 +1,15 @@
 @use 'variables' as *;
 
+.horizontal-text {
+  font-size: 100px;
+  line-height: 120px;
+}
+
+.vertical-text {
+  font-size: 60px;
+  line-height: 72px;
+}
+
 h1 {
   margin: 0;
   font-size: 42px;

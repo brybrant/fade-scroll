@@ -7,11 +7,7 @@
 
 <div class='example-container example-container--mask'>
   <div id='h-mask'>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ac sagittis lacus. In sagittis eleifend risus quis ullamcorper.</p>
-
-    <p>Cras vel nunc id purus pellentesque tincidunt nec convallis nisl. Duis nec volutpat est, eu vulputate est. Duis nec dictum ipsum.</p>
-    
-    <p> Aenean volutpat neque nec massa mattis facilisis eget nec erat. Nulla sed risus lobortis, eleifend mauris nec, hendrerit leo.</p>
+    <p class='horizontal-text'>Horizontal Fade Scroller</p>
   </div>
 </div>
 
@@ -29,16 +25,8 @@
   background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 2 2'%3E%3Cpath opacity='.25' d='M0 0h1v1H0zM1 1h1v1H1z'/%3E%3C/svg%3E") 50% 50% / 18px 18px;
 }
 
-.example-container--mask .fade-scroll--horizontal.left-overflow {
-  -webkit-mask-size: 100% 100%, 48px 100%;
-  mask-size: 100% 100%, 48px 100%;
-}
-
-.example-container--mask .fade-scroll--horizontal.right-overflow {
-  -webkit-mask-size: 100% 100%, 48px 100%;
-  mask-size: 100% 100%, 48px 100%;
-}
-
+.example-container--mask .fade-scroll--horizontal.left-overflow,
+.example-container--mask .fade-scroll--horizontal.right-overflow,
 .example-container--mask .fade-scroll--horizontal.left-overflow.right-overflow {
   -webkit-mask-size: 100% 100%, 48px 100%, 48px 100%;
   mask-size: 100% 100%, 48px 100%, 48px 100%;
