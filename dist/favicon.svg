@@ -1,20 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 10 10">
   <defs>
-    <linearGradient id="a" x1=".5" x2=".5" y1="1" y2="0">
-      <stop offset="0"/>
-      <stop offset=".5" stop-color="#fff"/>
+    <linearGradient id="a" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="1" stop-color="#fff" stop-opacity=".2"/>
     </linearGradient>
-    <mask id="b">
-      <path fill="url(#a)" d="M0 0h10v10H0z"/>
-    </mask>
   </defs>
-  <path fill="#fff" d="M0 0h10v10H0z"/>
-  <g opacity=".5">
-    <path d="M4 8h2v2H4zM8 8h2v2H8zM0 8h2v2H0zM4 4h2v2H4zM8 4h2v2H8zM0 4h2v2H0zM6 6h2v2H6zM2 6h2v2H2z"/>
-  </g>
-  <g mask="url(#b)">
-    <path d="M0 0h10v10H0z"/>
-    <path fill="#fff" d="M.5.5h9V10h-9z"/>
-    <path d="M1.5 1.5h7V10h-7z"/>
+  <rect width="10" height="10"/>
+  <g fill="#fff">
+    <path opacity=".2" d="m2,2H0V0h2v2ZM6,0h-2v2h2V0Zm4,0h-2v2h2V0Zm-6,2h-2v2h2v-2Zm4,0h-2v2h2v-2Zm-6,2H0v2h2v-2Zm4,0h-2v2h2v-2Zm4,0h-2v2h2v-2Zm-6,2h-2v2h2v-2Zm4,0h-2v2h2v-2Zm-6,2H0v2h2v-2Zm4,0h-2v2h2v-2Zm4,0h-2v2h2v-2Z"/>
+    <path d="m2.32,8.91h-1.32V1.05h3.7v1.13h-2.38v2.38h2.22v1.13h-2.22v3.21Z"/>
+    <path fill="url(#a)" d="m7.82,2.82c1.3,0,1.89.76,1.89,2.09v3.99h-.93l-.21-.81h-.03c-.42.68-.9.92-1.61.92-1.01,0-1.51-.83-1.51-1.84,0-1.31.87-1.87,2.2-1.92l.81-.03v-.29c0-.63-.17-1.1-.8-1.1-.47,0-.93.18-1.34.41l-.38-.92c.58-.35,1.24-.5,1.91-.5Zm.09,3.27c-.73.04-1.19.31-1.19,1.06,0,.64.29.87.69.87.71,0,1.02-.68,1.02-1.4v-.55l-.53.02Z"/>
   </g>
 </svg>
