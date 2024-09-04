@@ -35,42 +35,38 @@ $ npm i github:brybrant/fade-scroll
 
 *See [fade-scroll.css](./dist/fade-scroll.css) for the Fade Scroll styles.*
 
-### Basic Usage
-
 ```js
 // index.js
 import * as FadeScroll from '@brybrant/fade-scroll';
 
-new FadeScroll.Horizontal('#horizontal').mount();
+// Basic usage
+const horizontal = new FadeScroll.Horizontal('#horizontal').mount();
 
-const verticalScroller = new FadeScroll.Vertical('#vertical').mount();
+// Set options
+const vertical = new FadeScroll.Vertical('#vertical', {
+  hideScrollbar: true,
+}).mount();
 
-verticalScroller.destroy();
-```
+// Change options
+horizontal.options.captureWheel = true;
+vertical.options.hideScrollbar = true;
 
-### Setting and Changing Options
-
-```diff
-- new FadeScroll.Horizontal('#horizontal').mount();
-
-+ const horizontalScroller = new FadeScroll.Horizontal('#horizontal', {
-+  captureWheel: true,
-+ }).mount();
-
-+ horizontalScroller.options.captureWheel = false;
+// Destroy
+horizontal.destroy();
+vertical.destroy();
 ```
 
 ## API
 
 The constructor function takes two arguments:
 
-1. `element: HTMLElement | string` - *Required*\
+1. `element: HTMLElement | string` &mdash; *Required*\
   [HTMLElement](https://mdn.io/HTMLElement) or [querySelector string](https://mdn.io/querySelector) *(this will be the `content` of the Fade Scroller)*
 
-2. `options?: object` - *Optional*\
+2. `options?: object` &mdash; *Optional*\
   Fade Scroller options object
 
-...and returns a Fade Scroller:
+...and returns a **Fade Scroller**:
 
 ### Fade Scroller Properties
 
@@ -84,29 +80,29 @@ The constructor function takes two arguments:
   The outer element (contains `scrollBar` element)
 
 - `contentSize: number`\
-  The size of the `content` element (width if Horizontal, height if Vertical)
+  The size of the `content` element *(width if Horizontal, height if Vertical)*
 
 - `wrapperSize: number`\
-  The size of the `wrapper` element (width if Horizontal, height if Vertical)
+  The size of the `wrapper` element *(width if Horizontal, height if Vertical)*
 
 - `overflowSize: number`\
   The size of the overflow (`contentSize - wrapperSize`)
 
 - `scrollPosition: number`\
-  The scroll position of the `scrollBar` element ([`scrollLeft`](https://mdn.io/scrollLeft) if Horizontal, [`scrollTop`](https://mdn.io/scrollTop) if Vertical)
+  The scroll position of the `scrollBar` element *([`scrollLeft`](https://mdn.io/scrollLeft) if Horizontal, [`scrollTop`](https://mdn.io/scrollTop) if Vertical)*
 
 - `options: object`\
   The Fade Scroller options object:
-  - `hideScrollbar: boolean` - Default: `false`\
+  - `hideScrollbar: boolean` &mdash; Default: `false`\
     Hide the scrollbar?
   
-  - `captureWheel: boolean` ***(Horizontal only)*** - Default: `false`\
+  - `captureWheel: boolean` ***(Horizontal only)*** &mdash; Default: `false`\
     Capture [wheel events](https://mdn.io/WheelEvent) and translate to horizontal scroll movement?
 
 ### Fade Scroller Methods
 
 - `mount()`\
-  Starts observing the Fade Scroller elements to apply the appropriate styles when the sizes change
+  Starts observing the Fade Scroller elements to apply the correct classes when the sizes change
 
 - `destroy()`\
   Stops observing the Fade Scroller elements and removes built-in event listeners and styles
@@ -126,9 +122,11 @@ Fade Scroll uses [CSS masks](https://caniuse.com/css-masks) to blend seamlessly 
 Fade Scroll uses the [Resize Observer API](https://caniuse.com/resizeobserver) to apply the correct styles when the elements sizes change. You can [Ponyfill](https://ponyfill.com/) for unsupporting browsers by using the `setResizeObserver` function:
 
 ```js
-import { ResizeObserver as Ponyfill } from '@juggle/resize-observer';
+import { ResizeObserver as Polyfill } from '@juggle/resize-observer';
 
 import * as FadeScroll from '@brybrant/fade-scroll';
 
-FadeScroll.setResizeObserver(Ponyfill);
+FadeScroll.setResizeObserver(Polyfill);
+
+// Create some Fade Scrollers after setting the polyfill...
 ```
