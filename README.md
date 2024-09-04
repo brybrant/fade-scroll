@@ -1,6 +1,6 @@
 # Fade Scroll
 
-<img src='https://img.shields.io/badge/gzipped-1.2_KB-blue'>
+<img src='https://img.shields.io/badge/gzipped-1.17_KB-blue'>
 
 Fade Scroll is a tiny, zero-dependency cosmetic addon which adds subtle gradient masks to scrollable content.
 
