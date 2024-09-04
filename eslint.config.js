@@ -15,10 +15,10 @@ export default eslintConfig(
   },
   ...tseslint.configs.strictTypeChecked.map((config) => ({
     ...config,
-    files: ['./src/**/*.ts'],
+    files: ['**/*.ts'],
   })),
   {
-    files: ['./src/**/*.ts'],
+    files: ['**/*.ts'],
     plugins: {
       '@typescript-eslint': tseslint.plugin,
     },
