@@ -179,7 +179,9 @@ function compress(cb) {
 function compileEJS(cb) {
   ejs.renderFile(
     './src/index.ejs',
-    {},
+    {
+      github: 'https://github.com/brybrant/fade-scroll',
+    },
     {
       views: ['./src/ejs'],
       strict: true,
@@ -187,7 +189,7 @@ function compileEJS(cb) {
     },
     (err, html) => {
       if (err) {
-        console.error(err);
+        console.error('Error:', err.message);
         return cb();
       }
 

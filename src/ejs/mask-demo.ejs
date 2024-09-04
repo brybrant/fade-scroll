@@ -1,0 +1,49 @@
+<h2><%- include('github-link', {
+  href: '/src/ejs/mask-demo.ejs',
+  content: 'Mask Demo',
+}); %></h2>
+
+<p>Fade Scroll uses <a href='https://caniuse.com/css-masks' target='_blank'>CSS masks</a> to blend seamlessly with any&nbsp;background.</p>
+
+<div class='example-container example-container--mask'>
+  <div id='h-mask'>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ac sagittis lacus. In sagittis eleifend risus quis ullamcorper.</p>
+
+    <p>Cras vel nunc id purus pellentesque tincidunt nec convallis nisl. Duis nec volutpat est, eu vulputate est. Duis nec dictum ipsum.</p>
+    
+    <p> Aenean volutpat neque nec massa mattis facilisis eget nec erat. Nulla sed risus lobortis, eleifend mauris nec, hendrerit leo.</p>
+  </div>
+</div>
+
+<p>The CSS can be changed to use <a href='https://caniuse.com/css-gradients' target='_blank'>linear gradients</a> for better compatibility if the background is a solid&nbsp;color.</p>
+
+<style>
+.example-container--mask:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 2 2'%3E%3Cpath opacity='.25' d='M0 0h1v1H0zM1 1h1v1H1z'/%3E%3C/svg%3E") 50% 50% / 18px 18px;
+}
+
+.example-container--mask .fade-scroll--horizontal.left-overflow {
+  -webkit-mask-size: 100% 100%, 48px 100%;
+  mask-size: 100% 100%, 48px 100%;
+}
+
+.example-container--mask .fade-scroll--horizontal.right-overflow {
+  -webkit-mask-size: 100% 100%, 48px 100%;
+  mask-size: 100% 100%, 48px 100%;
+}
+
+.example-container--mask .fade-scroll--horizontal.left-overflow.right-overflow {
+  -webkit-mask-size: 100% 100%, 48px 100%, 48px 100%;
+  mask-size: 100% 100%, 48px 100%, 48px 100%;
+}
+</style>
+
+<script>
+  new FadeScroll.Horizontal('#h-mask').mount();
+</script>
