@@ -14,15 +14,10 @@ export interface Options {
  * @access private
  */
 export function setOptions(fs: Horizontal | Vertical, options: Options) {
-  if (!(Boolean(options) && options.constructor === Object)) return;
-
-  for (const option of Object.keys(options)) {
-    if (fs.options[option] === undefined) {
-      console.warn(`FadeScroll: '${option}' is not a valid option`);
-      continue;
+  if (Boolean(options) && options.constructor === Object) {
+    for (const option of Object.keys(options)) {
+      fs.options[option] = options[option];
     }
-
-    fs.options[option] = options[option];
   }
 }
 
@@ -49,7 +44,7 @@ export abstract class FadeScroller {
 
   /** - Resize Observer */
   protected readonly _observer: ResizeObserver;
-  
+
   /** - Options object */
   abstract readonly options: FadeScrollOptionsH | FadeScrollOptionsV;
 
@@ -155,7 +150,7 @@ export abstract class FadeScroller {
    * - Stops observing the `content` and `wrapper` elements
    * - Removes built-in event listeners and styles
    */
-  abstract destroy(): void
+  abstract destroy(): void;
 
   /** Add scroll event listener */
   public addScrollListener(callback: EventListener) {
