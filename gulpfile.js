@@ -10,7 +10,6 @@ import { ESLint } from 'eslint';
 import gulpSass from 'gulp-sass';
 import postcss from 'gulp-postcss';
 import { rollup } from 'rollup';
-import { getBabelOutputPlugin } from '@rollup/plugin-babel';
 import terser from '@rollup/plugin-terser';
 import typescript from '@rollup/plugin-typescript';
 import stylelint from 'stylelint';
@@ -21,10 +20,6 @@ import { stylelintConfig } from '@brybrant/configs';
 import formatEslintResults from './utils/format-eslint-results.js';
 import logger from './utils/gulp-logger.js';
 
-const babelPlugin = getBabelOutputPlugin({
-  moduleId: 'FadeScroll',
-  presets: [['@babel/preset-env', { modules: 'umd' }]],
-});
 const bs = browserSync.create();
 const eslint = new ESLint({ cache: true });
 const sass = gulpSass(dartSass);
@@ -84,7 +79,7 @@ async function generateBundles(bundle, ...configs) {
  * @param {Callback} cb
  */
 async function compileTS(cb) {
-  const rollupUMD = rollup({
+  const rollupIIFE = rollup({
     input: './src/index.ts',
     plugins: [
       typescript({
@@ -101,11 +96,11 @@ async function compileTS(cb) {
     .then(async (bundle) => {
       return generateBundles(bundle, {
         file: './dist/index.js',
+        format: 'iife',
+        name: 'FadeScroll',
         plugins: [
-          babelPlugin,
           terser({
             compress: {
-              arrows: false,
               passes: 3,
             },
           }),
@@ -146,7 +141,7 @@ async function compileTS(cb) {
 
   return Promise.all([
     eslint.lintFiles([tsFiles]).then(formatEslintResults),
-    rollupUMD,
+    rollupIIFE,
     ...(production ? [rollupMJS] : []),
   ]).finally(() => {
     cb();
