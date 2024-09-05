@@ -61,7 +61,7 @@ vertical.destroy();
 The constructor function takes two arguments:
 
 1. #### `element` &mdash; *Required*
-    HTMLElement or [querySelector string](https://mdn.io/querySelector) *(this will be the `content` of the Fade Scroller)*\
+    HTMLElement or [querySelector string](https://mdn.io/querySelector) *(this will be the [`content`](#content) of the Fade Scroller)*\
     &#9642; Type: [`HTMLElement`](https://mdn.io/HTMLElement) | `String`
 
 2. #### `options` &mdash; *Optional*
