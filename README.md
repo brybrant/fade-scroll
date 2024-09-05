@@ -78,38 +78,38 @@ The constructor function takes two arguments:
   &#9642; Access: `Read`
 
 - #### `scrollBar`
-  The element with overflow *(contains `content` element)*\
+  The element with overflow *(contains [`content`](#content) element)*\
   &#9642; Type: [`HTMLDivElement`](https://mdn.io/HTMLDivElement)\
   &#9642; Access: `Read`
 
 - #### `wrapper`
-  The outer element *(contains `scrollBar` element)*\
+  The outer element *(contains [`scrollBar`](#scrollbar) element)*\
   &#9642; Type: [`HTMLDivElement`](https://mdn.io/HTMLDivElement)\
   &#9642; Access: `Read`
 
 - #### `contentSize`
-  The size of the `content` element (in pixels)\
+  The size of the [`content`](#content) element (in pixels)\
   &#9642; Type: `Number`\
   &#9642; Access: `Read`
   | Horizontal | Vertical |
   |------------|----------|
-  |[offsetWidth](https://mdn.io/offsetWidth)|[offsetHeight](https://mdn.io/offsetHeight)|
+  |[`offsetWidth`](https://mdn.io/offsetWidth)|[`offsetHeight`](https://mdn.io/offsetHeight)|
 
 - #### `wrapperSize`
-  The size of the `wrapper` element (in pixels)\
+  The size of the [`wrapper`](#wrapper) element (in pixels)\
   &#9642; Type: `Number`\
   &#9642; Access: `Read`
   | Horizontal | Vertical |
   |------------|----------|
-  |[offsetWidth](https://mdn.io/offsetWidth)|[offsetHeight](https://mdn.io/offsetHeight)|
+  |[`offsetWidth`](https://mdn.io/offsetWidth)|[`offsetHeight`](https://mdn.io/offsetHeight)|
 
 - #### `overflowSize`
-  The size of the overflow (`contentSize - wrapperSize`)\
+  The size of the overflow ([`contentSize`](#contentsize) minus [`wrapperSize`](#wrappersize))\
   &#9642; Type: `Number`\
   &#9642; Access: `Read`
 
 - #### `scrollPosition`
-  The scroll position of the `scrollBar` element (in pixels)\
+  The scroll position of the [`scrollBar`](#scrollbar) element (in pixels)\
   &#9642; Type: `Number`\
   &#9642; Access: `Read / Write`
   | Horizontal | Vertical |
@@ -140,10 +140,10 @@ The constructor function takes two arguments:
   Stops observing the Fade Scroller elements and removes built-in event listeners and styles
 
 - #### `addScrollListener( callback: EventListener )`
-  Add a `scroll` EventListener to the `scrollBar` element
+  Add a `scroll` EventListener to the [`scrollBar`](#scrollbar) element
 
 - #### `removeScrollListener( callback: EventListener )`
-  Remove a `scroll` EventListener from the `scrollBar` element
+  Remove a `scroll` EventListener from the [`scrollBar`](#scrollbar) element
 
 ---
 
