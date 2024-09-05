@@ -1,13 +1,16 @@
 @use 'variables' as *;
 
 .horizontal-text {
-  font-size: 100px;
+  font-size: 60px;
   line-height: 120px;
+  letter-spacing: 6px;
 }
 
 .vertical-text {
   font-size: 60px;
   line-height: 72px;
+  letter-spacing: 6px;
+  word-wrap: break-word;
 }
 
 h1 {
@@ -78,6 +81,6 @@ a {
   }
 
   &[target=_blank]:after {
-    content: '\2009\2197';
+    content: '\2197';
   }
 }
