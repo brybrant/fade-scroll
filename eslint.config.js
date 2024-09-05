@@ -5,10 +5,18 @@ import { eslintConfig } from '@brybrant/configs';
 
 export default eslintConfig(
   {
+    files: ['**/*.ts', '**/*.js'],
     ignores: ['**/dist/**'],
     languageOptions: {
       globals: {
         ...globals.browser,
+      },
+    },
+  },
+  {
+    files: ['*.js'],
+    languageOptions: {
+      globals: {
         ...globals.node,
       },
     },
