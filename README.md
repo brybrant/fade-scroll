@@ -62,11 +62,11 @@ The constructor function takes two arguments:
 
 1. #### `element` &mdash; *Required*
     [HTMLElement](https://mdn.io/HTMLElement) or [querySelector string](https://mdn.io/querySelector) *(this will be the `content` of the Fade Scroller)*
-    - Type: `HTMLElement` | `String`
+    &#8227; Type: `HTMLElement` | `String`
 
 2. #### `options` &mdash; *Optional*
     [Fade Scroller options object](#options)
-    - Type: `Object`
+    &#8227; Type: `Object`
 
 ...and returns a **Fade Scroller**:
 
@@ -74,51 +74,51 @@ The constructor function takes two arguments:
 
 - #### `content`
   The element selected in the first argument of the constructor function
-  - Type: `HTMLElement`
+  &#8227; Type: `HTMLElement`
 
 - #### `scrollBar`
   The element with overflow *(contains `content` element)*
-  - Type: `HTMLDivElement`
+  &#8227; Type: `HTMLDivElement`
 
 - #### `wrapper`
   The outer element *(contains `scrollBar` element)*
-  - Type: `HTMLDivElement`
+  &#8227; Type: `HTMLDivElement`
 
 - #### `contentSize`
   The size of the `content` element:
-  - Type: `Number`
+  &#8227; Type: `Number`
     - *Horizontal &mdash; [`offsetWidth`](https://mdn.io/offsetWidth)*
     - *Vertical &mdash; [`offsetHeight`](https://mdn.io/offsetHeight)*
 
 - #### `wrapperSize`
   The size of the `wrapper` element:
-  - Type: `Number`
+  &#8227; Type: `Number`
     - *Horizontal &mdash; [`offsetWidth`](https://mdn.io/offsetWidth)*
     - *Vertical &mdash; [`offsetHeight`](https://mdn.io/offsetHeight)*
 
 - #### `overflowSize`
   The size of the overflow (`contentSize - wrapperSize`)
-  - Type: `Number`
+  &#8227; Type: `Number`
 
 - #### `scrollPosition` &mdash; *Read / Write*
-  The scroll position of the `scrollBar` element:\
-  - Type: `Number`
+  The scroll position of the `scrollBar` element:
+  &#8227; Type: `Number`
     - *Horizontal &mdash; [`scrollLeft`](https://mdn.io/scrollLeft)*
     - *Vertical &mdash; [`scrollTop`](https://mdn.io/scrollTop)*
 
 - #### `options`
   The Fade Scroller options:
-  - Type: `Object`
-    Properties:
-    - `hideScrollbar`
+  &#8227; Type: `Object`\
+  &#8227; Properties:
+    - `hideScrollbar`\
       Hide the scrollbar?
-      - Type: `Boolean`
-      - Default: `false`
+      &#8227; Type: `Boolean`
+      &#8227; Default: `false`
   
-    - `captureWheel` ***(Horizontal only)***
+    - `captureWheel` ***(Horizontal only)***\
       Capture [wheel events](https://mdn.io/WheelEvent) and translate to horizontal scroll movement?
-      - Type: `Boolean`
-      - Default: `false`
+      &#8227; Type: `Boolean`
+      &#8227; Default: `false`
 
 ### Fade Scroller Methods:
 
