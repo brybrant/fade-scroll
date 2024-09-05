@@ -61,8 +61,8 @@ vertical.destroy();
 The constructor function takes two arguments:
 
 1. #### `element` &mdash; *Required*
-    [HTMLElement](https://mdn.io/HTMLElement) or [querySelector string](https://mdn.io/querySelector) *(this will be the `content` of the Fade Scroller)*\
-    &#9642; Type: `HTMLElement` | `String`
+    HTMLElement or [querySelector string](https://mdn.io/querySelector) *(this will be the `content` of the Fade Scroller)*\
+    &#9642; Type: [`HTMLElement`](https://mdn.io/HTMLElement) | `String`
 
 2. #### `options` &mdash; *Optional*
     [Fade Scroller options object](#options)\
@@ -72,52 +72,64 @@ The constructor function takes two arguments:
 
 ### Fade Scroller Properties:
 
-- #### `content` &mdash; *Read*
+- #### `content`
   The element selected in the first argument of the constructor function\
-  &#9642; Type: `HTMLElement`
+  &#9642; Type: [`HTMLElement`](https://mdn.io/HTMLElement)\
+  &#9642; Access: `Read`
 
-- #### `scrollBar` &mdash; *Read*
+- #### `scrollBar`
   The element with overflow *(contains `content` element)*\
-  &#9642; Type: `HTMLDivElement`
+  &#9642; Type: [`HTMLDivElement`](https://mdn.io/HTMLDivElement)\
+  &#9642; Access: `Read`
 
-- #### `wrapper` &mdash; *Read*
+- #### `wrapper`
   The outer element *(contains `scrollBar` element)*\
-  &#9642; Type: `HTMLDivElement`
+  &#9642; Type: [`HTMLDivElement`](https://mdn.io/HTMLDivElement)\
+  &#9642; Access: `Read`
 
-- #### `contentSize` &mdash; *Read*
+- #### `contentSize`
   The size of the `content` element (in pixels)\
   &#9642; Type: `Number`\
-  &Tab;&#9656; *Horizontal: [width](https://mdn.io/offsetWidth)*\
-  &Tab;&#9656; *Vertical: [height](https://mdn.io/offsetHeight)*
+  &#9642; Access: `Read`
+  | Horizontal | Vertical |
+  |------------|----------|
+  |[offsetWidth](https://mdn.io/offsetWidth)|[offsetHeight](https://mdn.io/offsetHeight)|
 
-- #### `wrapperSize` &mdash; *Read*
+- #### `wrapperSize`
   The size of the `wrapper` element (in pixels)\
   &#9642; Type: `Number`\
-  &Tab;&#9656; *Horizontal: [width](https://mdn.io/offsetWidth)*\
-  &Tab;&#9656; *Vertical: [height](https://mdn.io/offsetHeight)*
+  &#9642; Access: `Read`
+  | Horizontal | Vertical |
+  |------------|----------|
+  |[offsetWidth](https://mdn.io/offsetWidth)|[offsetHeight](https://mdn.io/offsetHeight)|
 
-- #### `overflowSize` &mdash; *Read*
+- #### `overflowSize`
   The size of the overflow (`contentSize - wrapperSize`)\
-  &#9642; Type: `Number`
+  &#9642; Type: `Number`\
+  &#9642; Access: `Read`
 
-- #### `scrollPosition` &mdash; *Read / Write*
+- #### `scrollPosition`
   The scroll position of the `scrollBar` element (in pixels)\
   &#9642; Type: `Number`\
-  &Tab;&#9656; *Horizontal: [`scrollLeft`](https://mdn.io/scrollLeft)*\
-  &Tab;&#9656; *Vertical: [`scrollTop`](https://mdn.io/scrollTop)*
+  &#9642; Access: `Read / Write`
+  | Horizontal | Vertical |
+  |------------|----------|
+  |[`scrollLeft`](https://mdn.io/scrollLeft)|[`scrollTop`](https://mdn.io/scrollTop)|
 
-- #### `options` &mdash; *Read*
+- #### `options`
   The Fade Scroller options:\
   &#9642; Type: `Object`
-  - `hideScrollbar` &mdash; *Read / Write*\
+  - `hideScrollbar`\
     Hide the scrollbar?\
     &#9642; Type: `Boolean`\
-    &#9642; Default: `false`
+    &#9642; Default: `false`\
+    &#9642; Access: `Read / Write`
 
-  - `captureWheel` ***(Horizontal only)*** &mdash; *Read / Write*\
+  - `captureWheel` ***(Horizontal only)***\
     Capture [wheel events](https://mdn.io/WheelEvent) and translate to horizontal scroll movement?\
     &#9642; Type: `Boolean`\
-    &#9642; Default: `false`
+    &#9642; Default: `false`\
+    &#9642; Access: `Read / Write`
 
 ### Fade Scroller Methods:
 
