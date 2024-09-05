@@ -87,14 +87,14 @@ The constructor function takes two arguments:
 - #### `contentSize`
   The size of the `content` element:\
   &#9642; Type: `Number`\
-    - *Horizontal &mdash; [`offsetWidth`](https://mdn.io/offsetWidth)*
-    - *Vertical &mdash; [`offsetHeight`](https://mdn.io/offsetHeight)*
+    &#9656; *Horizontal &mdash; [`offsetWidth`](https://mdn.io/offsetWidth)*\
+    &#9656; *Vertical &mdash; [`offsetHeight`](https://mdn.io/offsetHeight)*
 
 - #### `wrapperSize`
   The size of the `wrapper` element:\
   &#9642; Type: `Number`\
-    - *Horizontal &mdash; [`offsetWidth`](https://mdn.io/offsetWidth)*
-    - *Vertical &mdash; [`offsetHeight`](https://mdn.io/offsetHeight)*
+    &#9656; *Horizontal &mdash; [`offsetWidth`](https://mdn.io/offsetWidth)*\
+    &#9656; *Vertical &mdash; [`offsetHeight`](https://mdn.io/offsetHeight)*
 
 - #### `overflowSize`
   The size of the overflow (`contentSize - wrapperSize`)\
@@ -103,13 +103,13 @@ The constructor function takes two arguments:
 - #### `scrollPosition` &mdash; *Read / Write*
   The scroll position of the `scrollBar` element:\
   &#9642; Type: `Number`\
-    - *Horizontal &mdash; [`scrollLeft`](https://mdn.io/scrollLeft)*
-    - *Vertical &mdash; [`scrollTop`](https://mdn.io/scrollTop)*
+    &#9656; *Horizontal &mdash; [`scrollLeft`](https://mdn.io/scrollLeft)*\
+    &#9656; *Vertical &mdash; [`scrollTop`](https://mdn.io/scrollTop)*
 
 - #### `options`
   The Fade Scroller options:\
   &#9642; Type: `Object`\
-  &#9642; Properties:\
+  &#9642; Properties:
     - `hideScrollbar`\
       Hide the scrollbar?\
       &#9642; Type: `Boolean`\
