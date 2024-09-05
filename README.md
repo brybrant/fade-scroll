@@ -1,8 +1,9 @@
 # Fade Scroll
 
 <img src='https://img.shields.io/badge/gzipped-1.17_KB-blue'>
+<img src='https://img.shields.io/badge/dependencies-0-292'>
 
-Fade Scroll is a tiny, zero-dependency cosmetic addon which adds subtle gradient masks to scrollable content.
+Fade Scroll is a cosmetic module which adds subtle gradient masks to the overflow of scrollable content.
 
 See the [demo page](https://brybrant.github.io/fade-scroll/) for an interactive demonstration.
 
@@ -60,57 +61,78 @@ vertical.destroy();
 
 The constructor function takes two arguments:
 
-1. `element: HTMLElement | string` &mdash; *Required*\
+1. #### `element` &mdash; *Required*
   [HTMLElement](https://mdn.io/HTMLElement) or [querySelector string](https://mdn.io/querySelector) *(this will be the `content` of the Fade Scroller)*
+  - Type: `HTMLElement` | `String`
 
-2. `options?: object` &mdash; *Optional*\
+2. #### `options` &mdash; *Optional*\
   Fade Scroller options object
+  - Type: `Object`
 
 ...and returns a **Fade Scroller**:
 
 ### Fade Scroller Properties
 
-- `content: HTMLElement`\
+- #### `content`
   The element selected in the first argument of the constructor function
+  - Type: `HTMLElement`
 
-- `scrollBar: HTMLDivElement`\
+- #### `scrollBar`
   The element with overflow (contains `content` element)
+  - Type: `HTMLDivElement`
 
-- `wrapper: HTMLDivElement`\
+- #### `wrapper`
   The outer element (contains `scrollBar` element)
+  - Type: `HTMLDivElement`
 
-- `contentSize: number`\
-  The size of the `content` element *(width if Horizontal, height if Vertical)*
+- #### `contentSize`
+  The size of the `content` element:
+  - Type: `Number`
+    - *Horizontal &mdash; [`offsetWidth`](https://mdn.io/offsetWidth)*
+    - *Vertical &mdash; [`offsetHeight`](https://mdn.io/offsetHeight)*
 
-- `wrapperSize: number`\
-  The size of the `wrapper` element *(width if Horizontal, height if Vertical)*
+- #### `wrapperSize`
+  The size of the `wrapper` element:
+  - Type: `Number`
+    - *Horizontal &mdash; [`offsetWidth`](https://mdn.io/offsetWidth)*
+    - *Vertical &mdash; [`offsetHeight`](https://mdn.io/offsetHeight)*
 
-- `overflowSize: number`\
+- #### `overflowSize`
   The size of the overflow (`contentSize - wrapperSize`)
+  - Type: `Number`
 
-- `scrollPosition: number`\
-  The scroll position of the `scrollBar` element *([`scrollLeft`](https://mdn.io/scrollLeft) if Horizontal, [`scrollTop`](https://mdn.io/scrollTop) if Vertical)*
+- #### `scrollPosition` &mdash; *Read / Write*
+  The scroll position of the `scrollBar` element:
+  - Type: `Number`
+    - *Horizontal &mdash; [`scrollLeft`](https://mdn.io/scrollLeft)*
+    - *Vertical &mdash; [`scrollTop`](https://mdn.io/scrollTop)*
 
-- `options: object`\
-  The Fade Scroller options object:
-  - `hideScrollbar: boolean` &mdash; Default: `false`\
-    Hide the scrollbar?
+- #### `options`
+  The Fade Scroller options:
+  - Type: `Object`
+    Properties:
+    - ##### `hideScrollbar`
+      Hide the scrollbar?
+      - Type: `Boolean`
+      - Default: `false`
   
-  - `captureWheel: boolean` ***(Horizontal only)*** &mdash; Default: `false`\
-    Capture [wheel events](https://mdn.io/WheelEvent) and translate to horizontal scroll movement?
+    - ##### `captureWheel` ***(Horizontal only)***
+      Capture [wheel events](https://mdn.io/WheelEvent) and translate to horizontal scroll movement?
+      - Type: `Boolean`
+      - Default: `false`
 
 ### Fade Scroller Methods
 
-- `mount()`\
+- #### `mount()`
   Starts observing the Fade Scroller elements to apply the correct classes when the sizes change
 
-- `destroy()`\
+- #### `destroy()`
   Stops observing the Fade Scroller elements and removes built-in event listeners and styles
 
-- `addScrollListener( callback: EventListener )`\
+- #### `addScrollListener( callback: EventListener )`
   Add a `scroll` EventListener to the `scrollBar` element
 
-- `removeScrollListener( callback: EventListener )`\
+- #### `removeScrollListener( callback: EventListener )`
   Remove a `scroll` EventListener from the `scrollBar` element
 
 ---
