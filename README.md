@@ -72,67 +72,66 @@ The constructor function takes two arguments:
 
 ### Fade Scroller Properties:
 
-- #### `content`
-  The element selected in the first argument of the constructor function\
-  &#9642; Type: `HTMLElement`
+#### `content`
+The element selected in the first argument of the constructor function\
+&#9642; Type: `HTMLElement`
 
-- #### `scrollBar`
-  The element with overflow *(contains `content` element)*\
-  &#9642; Type: `HTMLDivElement`
+#### `scrollBar`
+The element with overflow *(contains `content` element)*\
+&#9642; Type: `HTMLDivElement`
 
-- #### `wrapper`
-  The outer element *(contains `scrollBar` element)*\
-  &#9642; Type: `HTMLDivElement`
+#### `wrapper`
+The outer element *(contains `scrollBar` element)*\
+&#9642; Type: `HTMLDivElement`
 
-- #### `contentSize`
-  The size of the `content` element:\
-  &#9642; Type: `Number`\
-    &#9656; *Horizontal &mdash; [`offsetWidth`](https://mdn.io/offsetWidth)*\
-    &#9656; *Vertical &mdash; [`offsetHeight`](https://mdn.io/offsetHeight)*
+#### `contentSize`
+The size of the `content` element:\
+&#9642; Type: `Number`\
+  &#9656; *Horizontal: [width](https://mdn.io/offsetWidth)*\
+  &#9656; *Vertical: [height](https://mdn.io/offsetHeight)*
 
-- #### `wrapperSize`
-  The size of the `wrapper` element:\
-  &#9642; Type: `Number`\
-    &#9656; *Horizontal &mdash; [`offsetWidth`](https://mdn.io/offsetWidth)*\
-    &#9656; *Vertical &mdash; [`offsetHeight`](https://mdn.io/offsetHeight)*
+#### `wrapperSize`
+The size of the `wrapper` element:\
+&#9642; Type: `Number`\
+  &#9656; *Horizontal: [width](https://mdn.io/offsetWidth)*\
+  &#9656; *Vertical: [height](https://mdn.io/offsetHeight)*
 
-- #### `overflowSize`
-  The size of the overflow (`contentSize - wrapperSize`)\
-  &#9642; Type: `Number`
+#### `overflowSize`
+The size of the overflow (`contentSize - wrapperSize`)\
+&#9642; Type: `Number`
 
-- #### `scrollPosition` &mdash; *Read / Write*
-  The scroll position of the `scrollBar` element:\
-  &#9642; Type: `Number`\
-    &#9656; *Horizontal &mdash; [`scrollLeft`](https://mdn.io/scrollLeft)*\
-    &#9656; *Vertical &mdash; [`scrollTop`](https://mdn.io/scrollTop)*
+#### `scrollPosition` &mdash; *Read / Write*
+The scroll position of the `scrollBar` element:\
+&#9642; Type: `Number`\
+  &#9656; *Horizontal: [`scrollLeft`](https://mdn.io/scrollLeft)*\
+  &#9656; *Vertical: [`scrollTop`](https://mdn.io/scrollTop)*
 
-- #### `options`
-  The Fade Scroller options:\
-  &#9642; Type: `Object`\
-  &#9642; Properties:
-    - `hideScrollbar`\
-      Hide the scrollbar?\
-      &#9642; Type: `Boolean`\
-      &#9642; Default: `false`
-  
-    - `captureWheel` ***(Horizontal only)***\
-      Capture [wheel events](https://mdn.io/WheelEvent) and translate to horizontal scroll movement?\
-      &#9642; Type: `Boolean`\
-      &#9642; Default: `false`
+#### `options`
+The Fade Scroller options:\
+&#9642; Type: `Object`
+- `hideScrollbar`\
+  Hide the scrollbar?\
+  &#9642; Type: `Boolean`\
+  &#9642; Default: `false`
+
+- `captureWheel` ***(Horizontal only)***\
+  Capture [wheel events](https://mdn.io/WheelEvent) and translate to horizontal scroll movement?\
+  &#9642; Type: `Boolean`\
+  &#9642; Default: `false`
 
 ### Fade Scroller Methods:
 
-- #### `mount()`
-  Starts observing the Fade Scroller elements to apply the correct classes when the sizes change
+#### `mount()`
+Starts observing the Fade Scroller elements to apply the correct classes when the sizes change
 
-- #### `destroy()`
-  Stops observing the Fade Scroller elements and removes built-in event listeners and styles
+#### `destroy()`
+Stops observing the Fade Scroller elements and removes built-in event listeners and styles
 
-- #### `addScrollListener( callback: EventListener )`
-  Add a `scroll` EventListener to the `scrollBar` element
+#### `addScrollListener( callback: EventListener )`
+Add a `scroll` EventListener to the `scrollBar` element
 
-- #### `removeScrollListener( callback: EventListener )`
-  Remove a `scroll` EventListener from the `scrollBar` element
+#### `removeScrollListener( callback: EventListener )`
+Remove a `scroll` EventListener from the `scrollBar` element
 
 ---
 
