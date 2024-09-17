@@ -4,7 +4,7 @@
   "keywords": ["Fade", "Scroll", "FadeScroll", "Gradient", "Mask"],
   "author": "brybrant",
   "license": "GPL-3.0-only",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "types": "dist/index.d.ts",
   "main": "dist/index.js",
