@@ -9,7 +9,7 @@ See the [demo page](https://brybrant.github.io/fade-scroll/) for an interactive 
 ## Install
 
 ```bash
-$ npm i github:brybrant/fade-scroll
+$ npm i @brybrant/fade-scroll
 ```
 
 ## Setup
