@@ -19,7 +19,11 @@
     "dev": "env NODE_ENV=development gulp dev",
     "build": "env NODE_ENV=production gulp build && dts-bundle-generator --umd-module-name FadeScroll --no-banner -o dist/index.d.ts src/index.ts"
   },
-  "repository": "github:brybrant/fade-scroll",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brybrant/fade-scroll.git"
+  },
+  "homepage": "https://brybrant.github.io/fade-scroll/",
   "devDependencies": {
     "@brybrant/configs": "github:brybrant/configs",
     "@rollup/plugin-terser": "^0.4.4",
