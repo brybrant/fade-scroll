@@ -1,8 +1,10 @@
 {
   "name": "@brybrant/fade-scroll",
+  "description": "Fade Scroll is a cosmetic module which adds subtle gradient masks to the overflow of scrollable content.",
+  "keywords": ["Fade", "Scroll", "FadeScroll", "Gradient", "Mask"],
   "author": "brybrant",
   "license": "GPL-3.0-only",
-  "version": "1.1.1",
+  "version": "1.0.0",
   "type": "module",
   "types": "dist/index.d.ts",
   "main": "dist/index.js",
