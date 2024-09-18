@@ -1,6 +1,6 @@
 # Fade Scroll
 
-<img src='https://img.shields.io/badge/gzipped-1.17_KB-blue'> <img src='https://img.shields.io/badge/dependencies-0-292'>
+[<img src='https://img.shields.io/npm/v/%40brybrant%2Ffade-scroll'>](https://www.npmjs.com/package/@brybrant/fade-scroll) <img src='https://img.shields.io/badge/gzipped-1.17_KB-blue'> <img src='https://img.shields.io/badge/dependencies-0-292'>
 
 Fade Scroll is a cosmetic module which adds subtle gradient masks to the overflow of scrollable content.
 
