@@ -1,6 +1,6 @@
 import autoprefixer from 'autoprefixer';
 import cssnano from 'cssnano';
-import purgeCSSPlugin from '@fullhuman/postcss-purgecss';
+import { purgeCSSPlugin } from '@fullhuman/postcss-purgecss';
 import reporter from 'postcss-reporter';
 
 import { cssnanoConfig } from '@brybrant/configs';
