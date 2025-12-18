@@ -6,7 +6,7 @@ import type { Vertical } from './FadeScrollerVertical';
 import { resizeObserver } from './ResizeObserver';
 
 export interface Options {
-  [option: string]: unknown;
+  [option: string]: boolean;
 }
 
 /**

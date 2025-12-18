@@ -16,12 +16,12 @@ export interface FadeScrollOptionsV extends Options {
  */
 export function optionsVertical(fs: Vertical): FadeScrollOptionsV {
   return Object.seal({
-    _hideScrollbar: false,
+    _hideScrollbar: false as boolean,
     get hideScrollbar() {
       return this._hideScrollbar;
     },
     set hideScrollbar(bool: boolean) {
-      this._hideScrollbar = Boolean(bool);
+      this._hideScrollbar = bool;
 
       fs.scrollBar.style.width = this._hideScrollbar
         ? `calc(100% + ${fs.wrapper.offsetWidth - fs.content.offsetWidth}px)`

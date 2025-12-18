@@ -22,21 +22,21 @@ export interface FadeScrollOptionsH extends Options {
  */
 export function optionsHorizontal(fs: Horizontal): FadeScrollOptionsH {
   return Object.seal({
-    _hideScrollbar: false,
+    _hideScrollbar: false as boolean,
     get hideScrollbar() {
       return this._hideScrollbar;
     },
     set hideScrollbar(bool: boolean) {
-      this._hideScrollbar = Boolean(bool);
+      this._hideScrollbar = bool;
 
       fs.wrapper.style.height = bool ? `${fs.content.offsetHeight}px` : '';
     },
-    _captureWheel: false,
+    _captureWheel: false as boolean,
     get captureWheel() {
       return this._captureWheel;
     },
     set captureWheel(bool: boolean) {
-      this._captureWheel = Boolean(bool);
+      this._captureWheel = bool;
 
       fs.scrollBar.onwheel = bool ? fs.wheelListener : null;
     },
