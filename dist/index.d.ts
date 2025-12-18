@@ -32,7 +32,7 @@ export interface FadeScrollOptionsV extends Options {
 	hideScrollbar: boolean;
 }
 export interface Options {
-	[option: string]: unknown;
+	[option: string]: boolean;
 }
 declare abstract class FadeScroller {
 	/** - Inner element (selected in constructor) */

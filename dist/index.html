@@ -177,7 +177,7 @@ for (var i = 0; i < tabs.length; i++) tabs[i].onclick = activateTab;
 <div class='example-container'>
 <div class='grid'>
 <div class='grid__item toc'>
-<div id='toc'><!-- Table of contents links will go here --></div>
+<div id='toc'></div>
 </div>
 <div class='grid__item toc-content'>
 <div id='toc-content'>
@@ -208,7 +208,7 @@ content.scrollPosition = thisSection.offsetTop - 16;
 var links = [];
 for (var i = 0; i < sections.length; i++) {
 var link = document.createElement('a');
-link.href = `#${sections[i].id}`;
+link.href = '#' + sections[i].id;
 link.innerText = sections[i].innerText;
 link.className = 'toc__link';
 link.onclick = scrollSection;
