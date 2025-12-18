@@ -3,6 +3,7 @@
   vertical-align: top;
   width: 50%;
   height: 100%;
+  min-width: 0; // Fixes old Chrome bug
 }
 
 .grid {
