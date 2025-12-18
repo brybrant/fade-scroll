@@ -52,7 +52,7 @@ export class Horizontal extends FadeScroller {
 
   /** - `scrollLeft` value of `scrollBar` element */
   public get scrollPosition() {
-    return this.scrollBar.scrollLeft;
+    return Math.ceil(this.scrollBar.scrollLeft);
   }
 
   /** - `scrollLeft` value of `scrollBar` element */

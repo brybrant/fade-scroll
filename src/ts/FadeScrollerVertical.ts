@@ -44,7 +44,7 @@ export class Vertical extends FadeScroller {
 
   /** - `scrollTop` value of `scrollBar` element */
   public get scrollPosition() {
-    return this.scrollBar.scrollTop;
+    return Math.ceil(this.scrollBar.scrollTop);
   }
 
   /** - `scrollTop` value of `scrollBar` element */
