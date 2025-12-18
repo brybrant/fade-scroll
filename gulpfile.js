@@ -34,20 +34,18 @@ const tsFiles = './src/**/*.ts';
 
 /**
  * Callback to execute when gulp task completes
- * @typedef {Function} Callback
- * @returns {void}
+ * @callback GulpCallback
+ * @returns {Promise<void>|void}
  */
 
 /**
  * Gulp task
- * @typedef {Function} Task
- * @returns {Promise|void}
+ * @callback GulpTask
+ * @param {GulpCallback} cb
+ * @returns {Promise<void>|void}
  */
 
-/**
- * @type {Task} Compile SCSS
- * @param {Callback} cb
- */
+/** @type {GulpTask} Compile SCSS */
 async function compileSCSS(cb) {
   return Promise.all([
     stylelint
@@ -68,16 +66,18 @@ async function compileSCSS(cb) {
   });
 }
 
+/**
+ * @param {import('rollup').RollupBuild} bundle
+ * @param {...import('rollup').OutputOptions} configs
+ * @returns {void|Promise<void>}
+ */
 async function generateBundles(bundle, ...configs) {
   return Promise.all(configs.map((config) => bundle.write(config)))
     .catch((error) => console.error(error))
     .finally(() => bundle.close());
 }
 
-/**
- * @type {Task} Compile TS
- * @param {Callback} cb
- */
+/** @type {GulpTask} Compile TS */
 async function compileTS(cb) {
   const rollupIIFE = rollup({
     input: './src/index.ts',
@@ -148,10 +148,7 @@ async function compileTS(cb) {
   });
 }
 
-/**
- * @type {Task} Compress JS
- * @param {Callback} cb
- */
+/** @type {GulpTask} Compress JS */
 function compress(cb) {
   pipeline(
     createReadStream('./dist/index.mjs'),
@@ -167,10 +164,7 @@ function compress(cb) {
   );
 }
 
-/**
- * @type {Task} Compile EJS
- * @param {Callback} cb
- */
+/** @type {GulpTask} Compile EJS */
 function compileEJS(cb) {
   ejs.renderFile(
     './src/index.ejs',
@@ -195,10 +189,7 @@ function compileEJS(cb) {
   );
 }
 
-/**
- * @type {Task} Browser Sync task
- * @param {Callback} cb
- */
+/** @type {GulpTask} Browser Sync task */
 function browserSyncTask(cb) {
   bs.init({
     files: ['./dist'],
