@@ -15,49 +15,34 @@
 /* Horizontal fade scroller */
 .fade-scroll--horizontal.left-overflow {
   /* Chrome 26+, Edge 79+, Opera 15+, Safari 6.1+ */
-  -webkit-mask-image:
-    linear-gradient(#000, #000),
-    linear-gradient(90deg, #000, transparent);
-  -webkit-mask-size: 100% 100%, 24px 100%;
-  -webkit-mask-composite: xor, source-over;
-  -webkit-mask-repeat: repeat-y;
-  /* Chrome 120+, Edge 120+, Opera 106+, Safari 15.4+ */
-  -webkit-mask: linear-gradient(#000, #000) 0 0 / 100% 100% exclude,
+  -webkit-mask: linear-gradient(#000, #000) 0 0 / 100% 100%,
     linear-gradient(90deg, #000, transparent) 0 0 / 24px 100% repeat-y;
+  -webkit-mask-composite: xor;
+  /* Chrome 120+, Edge 120+, Opera 106+, Safari 15.4+ */
+  mask-composite: exclude;
   mask: linear-gradient(#000, #000) 0 0 / 100% 100% exclude,
     linear-gradient(90deg, #000, transparent) 0 0 / 24px 100% repeat-y;
 }
 
 .fade-scroll--horizontal.right-overflow {
   /* Chrome 26+, Edge 79+, Opera 15+, Safari 6.1+ */
-  -webkit-mask-image:
-    linear-gradient(#000, #000),
-    linear-gradient(90deg, transparent, #000);
-  -webkit-mask-position: 0 0, 100% 0;
-  -webkit-mask-size: 100% 100%, 24px 100%;
-  -webkit-mask-composite: xor, source-over;
-  -webkit-mask-repeat: repeat-y;
-  /* Chrome 120+, Edge 120+, Opera 106+, Safari 15.4+ */
-  -webkit-mask: linear-gradient(#000, #000) 0 0 / 100% 100% exclude,
+  -webkit-mask: linear-gradient(#000, #000) 0 0 / 100% 100%,
     linear-gradient(90deg, transparent, #000) 100% 0 / 24px 100% repeat-y;
+  -webkit-mask-composite: xor;
+  /* Chrome 120+, Edge 120+, Opera 106+, Safari 15.4+ */
+  mask-composite: exclude;
   mask: linear-gradient(#000, #000) 0 0 / 100% 100% exclude,
     linear-gradient(90deg, transparent, #000) 100% 0 / 24px 100% repeat-y;
 }
 
 .fade-scroll--horizontal.left-overflow.right-overflow {
   /* Chrome 26+, Edge 79+, Opera 15+, Safari 6.1+ */
-  -webkit-mask-image:
-    linear-gradient(#000, #000),
-    linear-gradient(90deg, #000, transparent),
-    linear-gradient(90deg, transparent, #000);
-  -webkit-mask-position: 0 0, 0 0, 100% 0;
-  -webkit-mask-size: 100% 100%, 24px 100%, 24px 100%;
-  -webkit-mask-composite: xor, source-over, source-over;
-  -webkit-mask-repeat: repeat-y;
-  /* Chrome 120+, Edge 120+, Opera 106+, Safari 15.4+ */
-  -webkit-mask: linear-gradient(#000, #000) 0 0 / 100% 100% exclude,
+  -webkit-mask: linear-gradient(#000, #000) 0 0 / 100% 100%,
     linear-gradient(90deg, #000, transparent) 0 0 / 24px 100% repeat-y,
     linear-gradient(90deg, transparent, #000) 100% 0 / 24px 100% repeat-y;
+  -webkit-mask-composite: xor;
+  /* Chrome 120+, Edge 120+, Opera 106+, Safari 15.4+ */
+  mask-composite: exclude;
   mask: linear-gradient(#000, #000) 0 0 / 100% 100% exclude,
     linear-gradient(90deg, #000, transparent) 0 0 / 24px 100% repeat-y,
     linear-gradient(90deg, transparent, #000) 100% 0 / 24px 100% repeat-y;
@@ -83,49 +68,34 @@
 
 .fade-scroll--vertical.top-overflow {
   /* Chrome 26+, Edge 79+, Opera 15+, Safari 6.1+ */
-  -webkit-mask-image:
-    linear-gradient(#000, #000),
-    linear-gradient(#000, transparent);
-  -webkit-mask-size: 100% 100%, 100% 24px;
-  -webkit-mask-composite: xor, source-over;
-  -webkit-mask-repeat: repeat-x;
-  /* Chrome 120+, Edge 120+, Opera 106+, Safari 15.4+ */
-  -webkit-mask: linear-gradient(#000, #000) 0 0 / 100% 100% exclude,
+  -webkit-mask: linear-gradient(#000, #000) 0 0 / 100% 100%,
     linear-gradient(#000, transparent) 0 0 / 100% 24px repeat-x;
+  -webkit-mask-composite: xor;
+  /* Chrome 120+, Edge 120+, Opera 106+, Safari 15.4+ */
+  mask-composite: exclude;
   mask: linear-gradient(#000, #000) 0 0 / 100% 100% exclude,
     linear-gradient(#000, transparent) 0 0 / 100% 24px repeat-x;
 }
 
 .fade-scroll--vertical.bottom-overflow {
   /* Chrome 26+, Edge 79+, Opera 15+, Safari 6.1+ */
-  -webkit-mask-image:
-    linear-gradient(#000, #000),
-    linear-gradient(transparent, #000);
-  -webkit-mask-position: 0 0, 0 100%;
-  -webkit-mask-size: 100% 100%, 100% 24px;
-  -webkit-mask-composite: xor, source-over;
-  -webkit-mask-repeat: repeat-x;
-  /* Chrome 120+, Edge 120+, Opera 106+, Safari 15.4+ */
-  -webkit-mask: linear-gradient(#000, #000) 0 0 / 100% 100% exclude,
+  -webkit-mask: linear-gradient(#000, #000) 0 0 / 100% 100%,
     linear-gradient(transparent, #000) 0 100% / 100% 24px repeat-x;
+  -webkit-mask-composite: xor;
+  /* Chrome 120+, Edge 120+, Opera 106+, Safari 15.4+ */
+  mask-composite: exclude;
   mask: linear-gradient(#000, #000) 0 0 / 100% 100% exclude,
     linear-gradient(transparent, #000) 0 100% / 100% 24px repeat-x;
 }
 
 .fade-scroll--vertical.top-overflow.bottom-overflow {
   /* Chrome 26+, Edge 79+, Opera 15+, Safari 6.1+ */
-  -webkit-mask-image:
-    linear-gradient(#000, #000),
-    linear-gradient(#000, transparent),
-    linear-gradient(transparent, #000);
-  -webkit-mask-position: 0 0, 0 0, 0 100%;
-  -webkit-mask-size: 100% 100%, 100% 24px, 100% 24px;
-  -webkit-mask-composite: xor, source-over, source-over;
-  -webkit-mask-repeat: repeat-x;
-  /* Chrome 120+, Edge 120+, Opera 106+, Safari 15.4+ */
-  -webkit-mask: linear-gradient(#000, #000) 0 0 / 100% 100% exclude,
+  -webkit-mask: linear-gradient(#000, #000) 0 0 / 100% 100%,
     linear-gradient(#000, transparent) 0 0 / 100% 24px repeat-x,
     linear-gradient(transparent, #000) 0 100% / 100% 24px repeat-x;
+  -webkit-mask-composite: xor;
+  /* Chrome 120+, Edge 120+, Opera 106+, Safari 15.4+ */
+  mask-composite: exclude;
   mask: linear-gradient(#000, #000) 0 0 / 100% 100% exclude,
     linear-gradient(#000, transparent) 0 0 / 100% 24px repeat-x,
     linear-gradient(transparent, #000) 0 100% / 100% 24px repeat-x;
