@@ -2,22 +2,23 @@ import type { Options } from './FadeScroller';
 import type { Horizontal } from './FadeScrollerHorizontal';
 
 /** Horizontal Fade Scroll options object */
-export interface FadeScrollOptionsH extends Options {
+export interface FadeScrollOptionsH extends Partial<Options> {
   /**
    * Hide the scrollbar?
    * @default false
    */
-  hideScrollbar: boolean;
+  hideScrollbar?: boolean;
 
   /**
    * Enable mousewheel event capture?
    * @default false
    */
-  captureWheel: boolean;
+  captureWheel?: boolean;
 }
 
 /**
  * Create Horizontal options object
+ * @param {Horizontal} fs
  * @access private
  */
 export function optionsHorizontal(fs: Horizontal): FadeScrollOptionsH {

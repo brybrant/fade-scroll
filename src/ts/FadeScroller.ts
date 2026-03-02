@@ -11,10 +11,15 @@ export interface Options {
 
 /**
  * Set the Fade Scroller options
+ * @param {Horizontal | Vertical} fs
+ * @param {Options} [options]
  * @access private
  */
-export function setOptions(fs: Horizontal | Vertical, options: Options) {
-  if (Boolean(options) && options.constructor === Object) {
+export function setOptions(
+  fs: Horizontal | Vertical,
+  options?: FadeScrollOptionsH | FadeScrollOptionsV,
+) {
+  if (options && options.constructor === Object) {
     for (const option of Object.keys(options)) {
       fs.options[option] = options[option];
     }
@@ -54,7 +59,10 @@ export abstract class FadeScroller {
   /** - Class if `scrollPosition < overflowSize` */
   abstract readonly _fadeEnd: string;
 
-  /** Creates a Fade Scroller */
+  /**
+   * Creates a Fade Scroller
+   * @param {HTMLElement | string} element
+   */
   protected constructor(element: HTMLElement | string) {
     let content: HTMLElement | null;
 
@@ -152,12 +160,18 @@ export abstract class FadeScroller {
    */
   abstract destroy(): void;
 
-  /** Add scroll event listener */
+  /**
+   * Add scroll event listener
+   * @param {EventListener} callback
+   */
   public addScrollListener(callback: EventListener) {
     this.scrollBar.addEventListener('scroll', callback);
   }
 
-  /** Remove scroll event listener */
+  /**
+   * Remove scroll event listener
+   * @param {EventListener} callback
+   */
   public removeScrollListener(callback: EventListener) {
     this.scrollBar.removeEventListener('scroll', callback);
   }

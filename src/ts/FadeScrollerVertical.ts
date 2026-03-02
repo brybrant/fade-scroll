@@ -18,7 +18,11 @@ export class Vertical extends FadeScroller {
 
   readonly _fadeEnd: 'bottom-overflow';
 
-  /** Creates a Vertical Fade Scroller */
+  /**
+   * Creates a Vertical Fade Scroller
+   * @param {HTMLElement | string} element
+   * @param {FadeScrollOptionsV} [options]
+   */
   constructor(element: HTMLElement | string, options?: FadeScrollOptionsV) {
     super(element);
 

@@ -18,7 +18,11 @@ export class Horizontal extends FadeScroller {
 
   readonly _fadeEnd: 'right-overflow';
 
-  /** Creates a Horizontal Fade Scroller */
+  /**
+   * Creates a Horizontal Fade Scroller
+   * @param {HTMLElement | string} element
+   * @param {FadeScrollOptionsH} [options]
+   */
   constructor(element: HTMLElement | string, options?: FadeScrollOptionsH) {
     super(element);
 
@@ -32,7 +36,10 @@ export class Horizontal extends FadeScroller {
     if (options !== undefined) setOptions(this, options);
   }
 
-  /** Wheel event listener */
+  /**
+   * Wheel event listener
+   * @param {WheelEvent} event
+   */
   public wheelListener = (event: WheelEvent) => {
     if (event.deltaY !== 0) {
       event.preventDefault();
