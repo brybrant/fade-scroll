@@ -17,7 +17,7 @@
   ],
   "scripts": {
     "dev": "env NODE_ENV=development gulp dev",
-    "build": "env NODE_ENV=production gulp build && dts-bundle-generator --umd-module-name FadeScroll --no-banner -o dist/index.d.ts src/index.ts"
+    "build": "env NODE_ENV=production gulp build"
   },
   "repository": {
     "type": "git",
@@ -26,22 +26,18 @@
   "homepage": "https://brybrant.github.io/fade-scroll/",
   "devDependencies": {
     "@brybrant/configs": "github:brybrant/configs",
-    "@rollup/plugin-terser": "^0.4.4",
-    "@rollup/plugin-typescript": "^12.3.0",
+    "@brybrant/svg-icons": "github:brybrant/svg-icons",
     "browser-sync": "^3.0.4",
     "chalk": "^5.6.2",
-    "dts-bundle-generator": "^9.5.1",
-    "ejs": "^3.1.10",
-    "eslint": "^9.26.0",
+    "ejs": "^4.0.1",
     "gulp": "^5.0.1",
     "gulp-postcss": "^10.0.0",
     "gulp-sass": "^6.0.1",
     "postcss": "^8.5.6",
     "postcss-reporter": "^7.1.0",
-    "rollup": "^4.53.5",
-    "sass": "^1.97.0",
-    "tslib": "^2.8.1",
-    "typescript-eslint": "^8.50.0"
+    "sass": "^1.97.3",
+    "tsdown": "^0.20.3",
+    "typescript-eslint": "^8.56.1"
   },
   "browserslist": [
     "Chrome >= 48",

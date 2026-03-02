@@ -7,10 +7,9 @@ import { cssnanoConfig } from '@brybrant/configs';
 
 /**
  * https://github.com/postcss/postcss-load-config
- * @param {Object} [ctx] - Context
- * @param {String} ctx.env - Environment (process.env.NODE_ENV)
- * @param {String} ctx.cwd - Current working directory (process.cwd())
- * @returns {import('postcss-load-config').Config}
+ * @param {object} [ctx] - Context
+ * @param {string} ctx.env - Environment (process.env.NODE_ENV)
+ * @param {string} ctx.cwd - Current working directory (process.cwd())
  */
 export default (/*ctx*/) => {
   // const development = ctx.env === 'development';

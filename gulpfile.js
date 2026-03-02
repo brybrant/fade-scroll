@@ -1,17 +1,13 @@
-import { writeFileSync } from 'node:fs';
-import { createGzip, constants } from 'node:zlib';
-import { pipeline } from 'node:stream';
-import { createReadStream, createWriteStream } from 'node:fs';
+import { readFileSync, writeFileSync } from 'node:fs';
+import { deflateSync, constants } from 'node:zlib';
 
 import browserSync from 'browser-sync';
+import { build as tsdownBuild } from 'tsdown';
 import { dest, parallel, series, src, watch } from 'gulp';
 import ejs from 'ejs';
 import { ESLint } from 'eslint';
 import gulpSass from 'gulp-sass';
 import postcss from 'gulp-postcss';
-import { rollup } from 'rollup';
-import terser from '@rollup/plugin-terser';
-import typescript from '@rollup/plugin-typescript';
 import stylelint from 'stylelint';
 import * as dartSass from 'sass';
 
@@ -19,15 +15,13 @@ import { stylelintConfig } from '@brybrant/configs';
 
 import formatEslintResults from './utils/format-eslint-results.js';
 import logger from './utils/gulp-logger.js';
+import tsdownConfig from './tsdown.config.js';
 
 const bs = browserSync.create();
 const eslint = new ESLint({ cache: true });
 const sass = gulpSass(dartSass);
 
 console.log('Starting Gulp task...');
-
-const development = process.env.NODE_ENV === 'development';
-const production = process.env.NODE_ENV === 'production';
 
 const scssFiles = './src/**/*.scss';
 const tsFiles = './src/**/*.ts';
@@ -66,110 +60,37 @@ async function compileSCSS(cb) {
   });
 }
 
-/**
- * @param {import('rollup').RollupBuild} bundle
- * @param {...import('rollup').OutputOptions} configs
- * @returns {void|Promise<void>}
- */
-async function generateBundles(bundle, ...configs) {
-  return Promise.all(configs.map((config) => bundle.write(config)))
-    .catch((error) => console.error(error))
-    .finally(() => bundle.close());
-}
-
 /** @type {GulpTask} Compile TS */
-async function compileTS(cb) {
-  const rollupIIFE = rollup({
-    input: './src/index.ts',
-    plugins: [
-      typescript({
-        compilerOptions: {
-          module: 'esnext',
-          moduleResolution: 'bundler',
-          strict: true,
-          target: 'es5',
-        },
-        tsconfig: false,
-      }),
-    ],
-  })
-    .then(async (bundle) => {
-      return generateBundles(bundle, {
-        file: './dist/index.js',
-        format: 'iife',
-        name: 'FadeScroll',
-        plugins: [
-          terser({
-            compress: {
-              passes: 3,
-            },
-          }),
-        ],
-        sourcemap: development,
-      });
-    })
-    .catch((error) => console.error(error));
-
-  const rollupMJS = rollup({
-    input: './src/index.ts',
-    plugins: [
-      typescript({
-        compilerOptions: {
-          module: 'esnext',
-          moduleResolution: 'bundler',
-          strict: true,
-          target: 'es6',
-        },
-        tsconfig: false,
-      }),
-    ],
-  })
-    .then(async (bundle) => {
-      return generateBundles(bundle, {
-        file: './dist/index.mjs',
-        plugins: [
-          terser({
-            compress: {
-              passes: 3,
-            },
-            module: true,
-          }),
-        ],
-      });
-    })
-    .catch((error) => console.error(error));
-
+function compileTS(cb) {
   return Promise.all([
     eslint.lintFiles([tsFiles]).then(formatEslintResults),
-    rollupIIFE,
-    ...(production ? [rollupMJS] : []),
-  ]).finally(() => {
-    cb();
-  });
+    tsdownBuild(tsdownConfig),
+  ]).finally(() => cb);
 }
 
 /** @type {GulpTask} Compress JS */
 function compress(cb) {
-  pipeline(
-    createReadStream('./dist/index.mjs'),
-    createGzip({
-      level: constants.Z_BEST_COMPRESSION,
-    }),
-    createWriteStream('./dist/index.mjs.gz'),
-    (err) => {
-      if (err) console.error(err);
+  const index = readFileSync('./dist/index.mjs', 'utf8');
 
-      cb();
-    },
-  );
+  const gzip = deflateSync(index, { level: constants.Z_BEST_COMPRESSION });
+
+  writeFileSync('./dist/index.mjs.gz', gzip);
+
+  cb();
 }
 
 /** @type {GulpTask} Compile EJS */
 function compileEJS(cb) {
+  const githubSVG = readFileSync(
+    './node_modules/@brybrant/svg-icons/GitHub.svg',
+    'utf8',
+  );
+
   ejs.renderFile(
     './src/index.ejs',
     {
       github: 'https://github.com/brybrant/fade-scroll',
+      githubSVG,
     },
     {
       views: ['./src/ejs'],
