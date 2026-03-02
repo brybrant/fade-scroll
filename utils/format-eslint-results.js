@@ -6,6 +6,7 @@ const warn = `${chalk.yellow('\u26A0')}`;
 
 const error = `${chalk.red('\u2716')}`;
 
+/** @param {import('eslint').ESLint.LintResult[]} results */
 export default function formatEslintResults(results) {
   let errors = 0;
   let warnings = 0;
