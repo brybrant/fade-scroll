@@ -30,7 +30,6 @@ declare global {
       end: boolean;
     };
     nextFrame: () => Promise<void>;
-    ResizeObserverPonyfill: { ResizeObserver: typeof ResizeObserver };
     FadeScroll: FadeScrollerAPI;
     horizontal: Horizontal;
     vertical: Vertical;
@@ -51,18 +50,6 @@ const html = await load('./test.html').then(async ({ data }) => {
 
 test('Fade Scroller', async ({ page }) => {
   await page.setContent(html);
-
-  await test.step('Ponyfill', async () => {
-    const hasResizeObserver = await page.evaluate(() => {
-      window.FadeScroll.setResizeObserver(
-        window.ResizeObserverPonyfill.ResizeObserver,
-      );
-
-      return typeof window.ResizeObserver !== 'undefined';
-    });
-
-    expect(hasResizeObserver).toBe(true);
-  });
 
   await test.step('Constructor (element)', async () => {
     await page.evaluate(() => {
