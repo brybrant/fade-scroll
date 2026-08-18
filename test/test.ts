@@ -263,6 +263,8 @@ test('Fade Scroller', async ({ page }) => {
     const positions = await page.evaluate(async () => {
       const scroller = window.horizontal;
 
+      scroller.scrollBar.scrollLeft = 0;
+
       scroller.captureWheel = true;
 
       scroller.scrollBar.dispatchEvent(new WheelEvent('wheel', { deltaX: 1 }));
