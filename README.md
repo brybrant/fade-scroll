@@ -101,13 +101,12 @@ The outer element *(contains [`scrollBar`](#scrollbar) element)*
 
 #### `overflowSize`
 The size of the overflow
+- Type: `number`
+- Access: `Read`
 
 |Horizontal|Vertical|
 |-|-|
 |[`content`](#content) width minus [`wrapper`](#wrapper) width|[`content`](#content) height minus [`wrapper`](#wrapper) height|
-
-- Type: `number`
-- Access: `Read`
 
 ---
 
@@ -142,10 +141,10 @@ Capture [wheel events](https://mdn.io/WheelEvent) and translate vertical to hori
 
 #### `mount()`
 1. Adds the FadeScroll CSS classes.
-2. Adds [wrapper](#wrapper) and [scrollBar](#scrollBar) to the DOM.
-3. Moves [content](#content) to inside the [scrollBar](#scrollBar) element.
+2. Adds [wrapper](#wrapper) and [scrollBar](#scrollbar) to the DOM.
+3. Moves [content](#content) to inside the [scrollBar](#scrollbar) element.
 4. Starts observing [content](#content) and [wrapper](#wrapper) elements.
-5. Adds the internal scroll event listener to [scrollBar](#scrollBar).
+5. Adds the internal scroll event listener to [scrollBar](#scrollbar).
 
 This will begin to add or remove CSS classes on the [wrapper](#wrapper) element in response to scrolling or size changes.
 
@@ -160,11 +159,11 @@ This will begin to add or remove CSS classes on the [wrapper](#wrapper) element 
 ---
 
 #### `destroy()`
-1. Removes the internal scroll event listener from [scrollBar](#scrollBar).
+1. Removes the internal scroll event listener from [scrollBar](#scrollbar).
 2. Stops observing [content](#content) and [wrapper](#wrapper) elements.
 3. Removes the FadeScroll CSS classes.
 4. Moves the [content](#content) element to its original position in the DOM.
-5. Removes [wrapper](#wrapper) and [scrollBar](#scrollBar) from the DOM.
+5. Removes [wrapper](#wrapper) and [scrollBar](#scrollbar) from the DOM.
 
 > [!TIP]
 > A destroyed Fade Scroller can be mounted again by calling [`mount()`](#mount)
