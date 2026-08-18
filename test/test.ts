@@ -263,7 +263,7 @@ test('Fade Scroller', async ({ page }) => {
       return window.horizontal.scrollPosition;
     });
 
-    expect(position1).toBe(1);
+    expect.soft(position1).toBe(1);
 
     await page.mouse.wheel(0, 1);
 
@@ -277,7 +277,7 @@ test('Fade Scroller', async ({ page }) => {
       return scroller.scrollPosition;
     });
 
-    expect(position2).toBe(2);
+    expect.soft(position2).toBe(2);
 
     await page.mouse.wheel(0, 1);
 
@@ -287,6 +287,6 @@ test('Fade Scroller', async ({ page }) => {
       return window.horizontal.scrollPosition;
     });
 
-    expect(position3).toBe(2);
+    expect.soft(position3).toBe(2);
   });
 });
