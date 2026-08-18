@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang='en'>
+  <head>
+    <meta charset='UTF-8'/>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
+    <meta name='darkreader-lock'/>
+    <title>Fade Scroll Test</title>
+    <!-- @style:../dist/fade-scroll.css -->
+    <!-- @style:./test.scss -->
+    <!-- @script:../dist/index.iife.js -->
+    <!-- @script:../dist/resize-observer.iife.js -->
+  </head>
+  <body>
+    <h1>Fade Scroll</h1>
+
+    <div id='horizontal'></div>
+
+    <div id='vertical'></div>
+
+    <script>
+    var getState = function(scroller, horizontal) {
+      var contentSize = scroller.content.getBoundingClientRect();
+      var wrapperSize = scroller.wrapper.getBoundingClientRect();
+
+      return {
+        contentPerpendicular: contentSize[horizontal ? 'height' : 'width'],
+        wrapperPerpendicular: wrapperSize[horizontal ? 'height' : 'width'],
+        position: scroller.scrollPosition,
+        overflow: scroller.overflowSize,
+        start: scroller.wrapper.classList.contains('fade-scroll--fade-start'),
+        end: scroller.wrapper.classList.contains('fade-scroll--fade-end'),
+      };
+    };
+
+    var nextFrame = function() {
+      return new Promise(function(resolve) {
+        requestAnimationFrame(function() {
+          requestAnimationFrame(resolve);
+        });
+      });
+    };
+    </script>
+  </body>
+</html>

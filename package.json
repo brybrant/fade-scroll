@@ -4,20 +4,35 @@
   "keywords": ["Fade", "Scroll", "FadeScroll", "Gradient", "Mask"],
   "author": "brybrant",
   "license": "GPL-3.0-only",
-  "version": "1.1.1",
+  "version": "2.0.0",
   "type": "module",
-  "types": "dist/index.d.ts",
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "exports": {
+    ".": {
+      "import": {
+        "default": "./dist/index.js",
+        "types": "./dist/index.d.ts"
+      },
+      "require": {
+        "default": "./dist/index.cjs",
+        "types": "./dist/index.d.ts"
+      },
+      "sass": "./dist/fade-scroll.css"
+    }
+  },
   "files": [
     "dist/fade-scroll.css",
+    "dist/fade-scroll--legacy.css",
+    "dist/index.cjs",
     "dist/index.d.ts",
-    "dist/index.js",
-    "dist/index.mjs"
+    "dist/index.js"
   ],
   "scripts": {
-    "dev": "env NODE_ENV=development gulp dev",
-    "build": "env NODE_ENV=production gulp build"
+    "build": "bun ./build.ts",
+    "demo": "bun ./demo/demo.ts",
+    "test": "npx playwright test"
   },
   "repository": {
     "type": "git",
@@ -25,31 +40,27 @@
   },
   "homepage": "https://brybrant.github.io/fade-scroll/",
   "devDependencies": {
-    "@brybrant/configs": "github:brybrant/configs",
+    "@brybrant/eslint-config": "^1.0.3",
+    "@brybrant/fade-scroll": ".",
+    "@brybrant/lightningcss-config": "^0.0.1",
+    "@brybrant/stylelint-config": "^1.0.2",
     "@brybrant/svg-icons": "github:brybrant/svg-icons",
-    "browser-sync": "^3.0.4",
-    "chalk": "^5.6.2",
-    "ejs": "^4.0.1",
-    "gulp": "^5.0.1",
-    "gulp-postcss": "^10.0.0",
-    "gulp-sass": "^6.0.1",
-    "postcss": "^8.5.6",
+    "@brybrant/svgo-config": "^1.0.0",
+    "@brybrant/terser-config": "^1.0.2",
+    "@juggle/resize-observer": "^3.4.0",
+    "@playwright/test": "^1.62.1",
+    "@types/bun": "^1.3.14",
+    "html-minifier-next": "^7.5.3",
     "postcss-reporter": "^7.1.0",
-    "sass": "^1.97.3",
-    "tsdown": "^0.20.3",
-    "typescript-eslint": "^8.56.1"
+    "sass-embedded": "1.x",
+    "tsdown": "^0.22.14"
   },
   "browserslist": [
+    "> 1%",
     "Chrome >= 48",
     "Edge >= 79",
-    "ff >= 53",
+    "Firefox >= 53",
     "Opera >= 46",
-    "Safari >= 13",
-    "and_chr >= 25",
-    "and_ff >= 53",
-    "op_mob >= 80",
-    "ios_saf >= 7",
-    "Samsung >= 4",
-    "not dead"
+    "Safari >= 13"
   ]
 }

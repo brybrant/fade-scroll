@@ -1,0 +1,86 @@
+@use './variables' as *;
+
+.horizontal-text {
+  font-size: 60px;
+  line-height: 120px;
+  letter-spacing: 6px;
+}
+
+.vertical-text {
+  font-size: 60px;
+  line-height: 72px;
+  letter-spacing: 6px;
+  overflow-wrap: break-word;
+}
+
+h1 {
+  margin: 0;
+  font-size: 42px;
+  line-height: 48px;
+}
+
+h2 {
+  margin: 36px 0 0;
+  font-size: 30px;
+  line-height: 36px;
+}
+
+h3 {
+  margin: 36px 0 0;
+  font-size: 24px;
+  line-height: 24px;
+}
+
+p {
+  margin: 24px 0 0;
+}
+
+p:first-child {
+  margin-top: 0;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  position: relative;
+  margin-top: 12px;
+  padding-left: 12px;
+  line-height: 24px;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 9px;
+    left: 0;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+}
+
+code {
+  vertical-align: top;
+  padding: 1px 4px;
+  border-radius: 4px;
+  background: $grey-200;
+  font-size: 90%;
+  white-space: nowrap;
+}
+
+a {
+  color: #6ae;
+  text-decoration: none;
+
+  &:hover {
+    color: #9ce;
+  }
+
+  &[target=_blank]:after {
+    content: '\2197';
+  }
+}

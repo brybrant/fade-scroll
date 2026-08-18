@@ -1,178 +1,222 @@
-import type { FadeScrollOptionsH } from './OptionsHorizontal';
-import type { FadeScrollOptionsV } from './OptionsVertical';
-import type { Horizontal } from './FadeScrollerHorizontal';
-import type { Vertical } from './FadeScrollerVertical';
+import { ResizeObserverClass } from './ResizeObserver';
 
-import { resizeObserver } from './ResizeObserver';
+export const classFadeScroll = 'fade-scroll';
+export const classFadeScrollScrollbar = `${classFadeScroll}__scrollbar`;
+export const classFadeScrollContent = `${classFadeScroll}__content`;
 
-export interface Options {
-  [option: string]: boolean;
-}
+/** Class if {@link FadeScroller.scrollPosition} > 0 */
+const classFadeStart = `${classFadeScroll}--fade-start`;
 
-/**
- * Set the Fade Scroller options
- * @param {Horizontal | Vertical} fs
- * @param {Options} [options]
- * @access private
- */
-export function setOptions(
-  fs: Horizontal | Vertical,
-  options?: FadeScrollOptionsH | FadeScrollOptionsV,
-) {
-  if (options && options.constructor === Object) {
-    for (const option of Object.keys(options)) {
-      fs.options[option] = options[option];
-    }
+/** Class if {@link FadeScroller.scrollPosition} < {@link FadeScroller.overflowSize} */
+const classFadeEnd = `${classFadeScroll}--fade-end`;
+
+type Axis = 'horizontal' | 'vertical';
+
+let observer: ResizeObserver | undefined;
+
+const observationMap = new Map<Element, FadeScroller>();
+
+/** Feature detection: `true` if smooth scrolling is supported */
+let smoothScrollSupported: boolean;
+
+let prefersReducedMotion: MediaQueryList | undefined;
+
+export const scroll = (
+  scrollBar: FadeScroller['scrollBar'],
+  directionSmooth: 'top' | 'left',
+  direction: 'scrollTop' | 'scrollLeft',
+  position: number,
+) => {
+  if (smoothScrollSupported && !prefersReducedMotion?.matches) {
+    scrollBar.scroll({
+      [directionSmooth]: position,
+      behavior: 'smooth',
+    });
+  } else {
+    scrollBar[direction] = position;
   }
-}
+};
 
-/**
- * `true` if smooth scrolling is supported
- * @access private
- */
-export const smoothScrollSupported: boolean =
-  'scrollBehavior' in document.documentElement.style;
+export const prependStyle = (element: HTMLStyleElement, css: string) => {
+  if (element.parentNode) return;
+  element.textContent = css;
+  document.head.insertAdjacentElement('afterbegin', element);
+};
 
-/**
- * Fade Scroller
- * @access private
- */
+const styleRules = `.${classFadeScroll}{overflow:hidden}.${classFadeScrollScrollbar}{overflow:hidden;width:100%;height:100%}.${classFadeScrollContent}{position:relative}`;
+
+let style: HTMLStyleElement | undefined;
+
+/** Fade Scroller */
 export abstract class FadeScroller {
-  /** - Inner element (selected in constructor) */
-  readonly content: HTMLElement;
+  /** @returns Resize Observer */
+  private static get observer() {
+    if (!ResizeObserverClass) {
+      throw new Error('FadeScroller requires ResizeObserver');
+    }
 
-  /** - Element with overflow (contains `content` element) */
-  readonly scrollBar: HTMLDivElement;
+    return (observer ??= new ResizeObserverClass((entries) => {
+      const scrollers = new Set<FadeScroller>();
 
-  /** - Outer element (contains `scrollBar` element) */
-  readonly wrapper: HTMLDivElement;
+      for (const entry of entries) {
+        const scroller = observationMap.get(entry.target);
 
-  /** - Resize Observer */
-  protected readonly _observer: ResizeObserver;
+        if (scroller) scrollers.add(scroller);
+      }
 
-  /** - Options object */
-  abstract readonly options: FadeScrollOptionsH | FadeScrollOptionsV;
+      scrollers.forEach((scroller) => {
+        scroller.scrollListener();
+      });
+    }));
+  }
 
-  /** - Class if `scrollPosition > 0` */
-  abstract readonly _fadeStart: string;
+  /** Scrolling axis */
+  private readonly axis: Axis;
 
-  /** - Class if `scrollPosition < overflowSize` */
-  abstract readonly _fadeEnd: string;
+  /** Inner element (selected in constructor) */
+  public readonly content: HTMLElement;
+
+  /** Element with overflow (contains {@link content} element) */
+  public readonly scrollBar: HTMLDivElement;
+
+  /** Outer element (contains {@link scrollBar} element) */
+  public readonly wrapper: HTMLDivElement;
+
+  /** Fade Scroller is mounted? */
+  protected _mounted = false;
 
   /**
    * Creates a Fade Scroller
-   * @param {HTMLElement | string} element
+   * @param element (Will become {@link content})
+   * @param axis Scrolling axis
    */
-  protected constructor(element: HTMLElement | string) {
-    let content: HTMLElement | null;
+  protected constructor(element: HTMLElement | string, axis: Axis) {
+    let content: HTMLElement;
 
     if (element instanceof HTMLElement) {
       content = element;
     } else {
-      try {
-        content = document.querySelector(element);
-      } catch {
-        throw new SyntaxError(
-          `'${JSON.stringify(element)}' is not a valid selector`,
-        );
-      }
+      const el = document.querySelector<HTMLElement>(element);
 
-      if (content === null) {
+      if (el === null) {
         throw new Error(
           `Cannot find an element matching the selector '${element}'`,
         );
       }
+
+      content = el;
     }
 
-    if (content.parentNode === null) {
-      throw new Error('Provided element does not have a parent');
+    this.axis = axis;
+
+    if (!style) {
+      style = document.createElement('style');
+      smoothScrollSupported = 'scrollBehavior' in style.style;
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+      prefersReducedMotion = window.matchMedia
+        ? window.matchMedia('(prefers-reduced-motion: reduce)')
+        : undefined;
     }
 
-    content.classList.add('fade-scroll__content');
+    prependStyle(style, styleRules);
 
     const wrapper = document.createElement('div');
-    wrapper.className = 'fade-scroll';
-
     const scrollBar = document.createElement('div');
-    scrollBar.className = 'fade-scroll__scrollbar';
 
-    wrapper.appendChild(scrollBar);
-    content.parentNode.insertBefore(wrapper, content);
-    scrollBar.appendChild(content);
-
-    this.content = content;
-    this.scrollBar = scrollBar;
     this.wrapper = wrapper;
-
-    this._observer = new resizeObserver(this.scrollListener);
-
-    this.addScrollListener(this.scrollListener);
+    this.scrollBar = scrollBar;
+    this.content = content;
   }
 
   /** Scroll event listener */
-  protected scrollListener = () => {
-    const wrapperClasses = this.wrapper.classList;
+  private readonly scrollListener = () => {
+    const position = Math.ceil(this.scrollPosition);
 
-    wrapperClasses[this.scrollPosition < this.overflowSize ? 'add' : 'remove'](
-      this._fadeEnd,
-    );
+    const wrapper = this.wrapper.classList;
 
-    wrapperClasses[this.scrollPosition > 0 ? 'add' : 'remove'](this._fadeStart);
+    wrapper[position < this.overflowSize ? 'add' : 'remove'](classFadeEnd);
+
+    wrapper[position > 0 ? 'add' : 'remove'](classFadeStart);
   };
 
-  /**
-   * Size of the `content` element:
-   * - `width` for Horizontal
-   * - `height` for Vertical
-   */
-  abstract get contentSize(): number;
+  /** @returns Size of the overflow */
+  public abstract get overflowSize(): number;
+
+  /** @returns Scroll offset of {@link scrollBar} */
+  public abstract get scrollPosition(): number;
+
+  /** @param number Scroll offset of {@link scrollBar} */
+  public abstract set scrollPosition(number: number);
+
+  /** Hide the scrollbar? */
+  public abstract set hideScrollbar(hide: boolean);
 
   /**
-   * Size of the `wrapper` element:
-   * - `width` for Horizontal
-   * - `height` for Vertical
+   * 1. Adds {@link wrapper} and {@link scrollBar} to the DOM
+   * 2. Adds FadeScroll CSS classes to applicable elements
+   * 3. Adds {@link content} and {@link wrapper} to {@link observationMap}
+   * 4. Starts observing the {@link content} and {@link wrapper} elements
+   * 5. Adds {@link scrollListener} event listener to {@link scrollBar}
+   * 6. Sets {@link _mounted} to `true`
+   * @returns this
    */
-  abstract get wrapperSize(): number;
-
-  /** - Size of overflow `(contentSize - wrapperSize)` */
-  public get overflowSize() {
-    return this.contentSize - this.wrapperSize;
-  }
-
-  /**
-   * Scroll offset of `scrollBar` element:
-   * - `scrollLeft` for Horizontal
-   * - `scrollTop` for Vertical
-   */
-  abstract get scrollPosition(): number;
-
-  /** - Starts observing the `content` and `wrapper` elements to apply the appropriate styles when the sizes change */
   public mount() {
-    this._observer.observe(this.wrapper);
-    this._observer.observe(this.content);
+    if (this._mounted) return;
+
+    this.wrapper.className = `${classFadeScroll} ${classFadeScroll}--${this.axis}`;
+    this.scrollBar.className = classFadeScrollScrollbar;
+
+    this.wrapper.appendChild(this.scrollBar);
+
+    // Will throw if `this.content.parentNode === null`
+    this.content.insertAdjacentElement('beforebegin', this.wrapper);
+    this.scrollBar.appendChild(this.content);
+
+    this.content.classList.add(classFadeScrollContent);
+
+    observationMap.set(this.wrapper, this);
+    observationMap.set(this.content, this);
+
+    FadeScroller.observer.observe(this.wrapper);
+    FadeScroller.observer.observe(this.content);
+
+    this.scrollBar.addEventListener('scroll', this.scrollListener);
+
+    this._mounted = true;
+
+    // this.update();
+    this.scrollListener();
 
     return this;
   }
 
   /**
-   * - Stops observing the `content` and `wrapper` elements
-   * - Removes built-in event listeners and styles
+   * 1. Sets {@link _mounted} to `false`
+   * 2. Removes {@link scrollListener} event listener from {@link scrollBar}
+   * 3. Stops observing the {@link content} and {@link wrapper} elements
+   * 4. Removes {@link content} and {@link wrapper} from {@link observationMap}
+   * 5. Removes FadeScroll CSS classes from applicable elements
+   * 6. Removes {@link wrapper} and {@link scrollBar} from the DOM
    */
-  abstract destroy(): void;
+  public destroy() {
+    if (!this._mounted) return;
 
-  /**
-   * Add scroll event listener
-   * @param {EventListener} callback
-   */
-  public addScrollListener(callback: EventListener) {
-    this.scrollBar.addEventListener('scroll', callback);
-  }
+    this._mounted = false;
 
-  /**
-   * Remove scroll event listener
-   * @param {EventListener} callback
-   */
-  public removeScrollListener(callback: EventListener) {
-    this.scrollBar.removeEventListener('scroll', callback);
+    this.scrollBar.removeEventListener('scroll', this.scrollListener);
+
+    FadeScroller.observer.unobserve(this.wrapper);
+    FadeScroller.observer.unobserve(this.content);
+
+    observationMap.delete(this.wrapper);
+    observationMap.delete(this.content);
+
+    this.wrapper.classList.remove(classFadeStart, classFadeEnd);
+    this.content.classList.remove(classFadeScrollContent);
+
+    this.wrapper.insertAdjacentElement('beforebegin', this.content);
+
+    this.scrollBar.remove();
+    this.wrapper.remove();
   }
 }

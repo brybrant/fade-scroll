@@ -1,5 +1,6 @@
 node_modules
+dist
+!dist/fade-scroll.css
+!dist/fade-scroll--legacy.css
 .stylelintcache
 .eslintcache
-*.gz
-*.map

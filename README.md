@@ -1,10 +1,15 @@
 # Fade Scroll
 
-[<img src='https://img.shields.io/npm/v/%40brybrant%2Ffade-scroll'>](https://www.npmjs.com/package/@brybrant/fade-scroll) <img src='https://img.shields.io/badge/gzipped-1.17_KB-blue'> <img src='https://img.shields.io/badge/dependencies-0-292'>
+[<img src='https://img.shields.io/npm/v/%40brybrant%2Ffade-scroll'>](https://www.npmjs.com/package/@brybrant/fade-scroll) <img src='https://img.shields.io/bundlejs/size/%40brybrant%2Ffade-scroll?exports=Horizontal%2CVertical&format=minzip'>
 
 Fade Scroll is a cosmetic module which adds subtle gradient masks to the overflow of scrollable content.
 
 See the [demo page](https://brybrant.github.io/fade-scroll/) for an interactive demonstration.
+
+> [!IMPORTANT]
+> Fade Scroll automatically injects the minimal CSS required. The visual fade effect is intentionally left to the user so that it can be customized freely.
+> See [fade-scroll.css](./dist/fade-scroll.css) for example styles which use [CSS masks](https://caniuse.com/css-masks) to blend seamlessly with *any* background.
+> If you want to support legacy browsers, see [fade-scroll--legacy.css](./dist/fade-scroll--legacy.css) for an example of how you can use [linear gradients](https://caniuse.com/css-gradients) with pseudo elements to achieve a similar effect.
 
 ## Install
 
@@ -33,132 +38,151 @@ $ npm i @brybrant/fade-scroll
 </html>
 ```
 
-*See [fade-scroll.css](./dist/fade-scroll.css) for the Fade Scroll styles.*
-
-```js
+```ts
 // index.js
 import * as FadeScroll from '@brybrant/fade-scroll';
 
-// Basic usage
-const horizontal = new FadeScroll.Horizontal('#horizontal').mount();
+// Constructor with HTMLElement
+const horizontal = new FadeScroll.Horizontal(
+  document.getElementById<HTMLElement>('horizontal')!,
+);
+
+// Constructor with string (passed to `document.querySelector()`)
+const vertical = new FadeScroll.Vertical('#vertical');
+
+// Lifecycle begin
+horizontal.mount();
+vertical.mount();
 
 // Set options
-const vertical = new FadeScroll.Vertical('#vertical', {
-  hideScrollbar: true,
-}).mount();
+horizontal.captureWheel = true;
+vertical.hideScrollbar = true;
 
 // Change options
-horizontal.options.captureWheel = true;
-vertical.options.hideScrollbar = true;
+vertical.hideScrollbar = false;
 
-// Destroy
+// Lifecycle end
 horizontal.destroy();
 vertical.destroy();
 ```
 
 ## API
 
-The constructor function takes two arguments:
+The constructor requires only one argument:
 
-1. #### `element` &mdash; *Required*
-    HTMLElement or [querySelector string](https://mdn.io/querySelector) *(this will be the [`content`](#content) of the Fade Scroller)*\
-    &#9642; Type: [`HTMLElement`](https://mdn.io/HTMLElement) | `String`
+[`HTMLElement`](https://mdn.io/HTMLElement) or `string` (which is passed to [`querySelector()`](https://mdn.io/querySelector))
 
-2. #### `options` &mdash; *Optional*
-    [Fade Scroller options object](#options)\
-    &#9642; Type: `Object`
+This will become the [`content`](#content) of the Fade Scroller.
 
-...and returns a **Fade Scroller**:
+The constructor returns a **Fade Scroller**:
 
 ### Fade Scroller Properties:
 
-- #### `content`
-  The element selected in the first argument of the constructor function\
-  &#9642; Type: [`HTMLElement`](https://mdn.io/HTMLElement)\
-  &#9642; Access: `Read`
+#### `content`
+The element selected in the first argument of the constructor function
+- Type: [`HTMLElement`](https://mdn.io/HTMLElement)
+- Access: `Read`
 
-- #### `scrollBar`
-  The element with overflow *(contains [`content`](#content) element)*\
-  &#9642; Type: [`HTMLDivElement`](https://mdn.io/HTMLDivElement)\
-  &#9642; Access: `Read`
+---
 
-- #### `wrapper`
-  The outer element *(contains [`scrollBar`](#scrollbar) element)*\
-  &#9642; Type: [`HTMLDivElement`](https://mdn.io/HTMLDivElement)\
-  &#9642; Access: `Read`
+#### `scrollBar`
+The element with overflow *(contains [`content`](#content) element)*
+- Type: [`HTMLDivElement`](https://mdn.io/HTMLDivElement)
+- Access: `Read`
 
-- #### `contentSize`
-  The size of the [`content`](#content) element (in pixels)\
-  &#9642; Type: `Number`\
-  &#9642; Access: `Read`
-  | Horizontal | Vertical |
-  |------------|----------|
-  |[`offsetWidth`](https://mdn.io/offsetWidth)|[`offsetHeight`](https://mdn.io/offsetHeight)|
+---
 
-- #### `wrapperSize`
-  The size of the [`wrapper`](#wrapper) element (in pixels)\
-  &#9642; Type: `Number`\
-  &#9642; Access: `Read`
-  | Horizontal | Vertical |
-  |------------|----------|
-  |[`offsetWidth`](https://mdn.io/offsetWidth)|[`offsetHeight`](https://mdn.io/offsetHeight)|
+#### `wrapper`
+The outer element *(contains [`scrollBar`](#scrollbar) element)*
+- Type: [`HTMLDivElement`](https://mdn.io/HTMLDivElement)
+- Access: `Read`
 
-- #### `overflowSize`
-  The size of the overflow ([`contentSize`](#contentsize) minus [`wrapperSize`](#wrappersize))\
-  &#9642; Type: `Number`\
-  &#9642; Access: `Read`
+---
 
-- #### `scrollPosition`
-  The scroll position of the [`scrollBar`](#scrollbar) element (in pixels)\
-  &#9642; Type: `Number`\
-  &#9642; Access: `Read / Write`
-  | Horizontal | Vertical |
-  |------------|----------|
-  |[`scrollLeft`](https://mdn.io/scrollLeft)|[`scrollTop`](https://mdn.io/scrollTop)|
+#### `overflowSize`
+The size of the overflow
 
-- #### `options`
-  The Fade Scroller options:\
-  &#9642; Type: `Object`
-  - `hideScrollbar`\
-    Hide the scrollbar?\
-    &#9642; Type: `Boolean`\
-    &#9642; Default: `false`\
-    &#9642; Access: `Read / Write`
+|Horizontal|Vertical|
+|-|-|
+|[`content`](#content) width minus [`wrapper`](#wrapper) width|[`content`](#content) height minus [`wrapper`](#wrapper) height|
 
-  - `captureWheel` ***(Horizontal only)***\
-    Capture [wheel events](https://mdn.io/WheelEvent) and translate to horizontal scroll movement?\
-    &#9642; Type: `Boolean`\
-    &#9642; Default: `false`\
-    &#9642; Access: `Read / Write`
+- Type: `number`
+- Access: `Read`
+
+---
+
+#### `scrollPosition`
+The scroll position of the [`scrollBar`](#scrollbar) element
+- Type: `number`
+- Access: `Read / Write`
+
+|Horizontal|Vertical|
+|-|-|
+|[`scrollLeft`](https://mdn.io/scrollLeft)|[`scrollTop`](https://mdn.io/scrollTop)|
+
+---
+
+#### `hideScrollbar`
+Hide the scrollbar?
+- Type: `boolean`
+- Default: `false`
+- Access: `Write`
+
+---
+
+#### `captureWheel` ***(Horizontal only)***
+Capture [wheel events](https://mdn.io/WheelEvent) and translate vertical to horizontal scroll movement?
+- Type: `boolean`
+- Default: `false`
+- Access: `Write`
+
+---
 
 ### Fade Scroller Methods:
 
-- #### `mount()`
-  Starts observing the Fade Scroller elements to apply the correct classes when the sizes change
+#### `mount()`
+1. Adds the FadeScroll CSS classes.
+2. Adds [wrapper](#wrapper) and [scrollBar](#scrollBar) to the DOM.
+3. Moves [content](#content) to inside the [scrollBar](#scrollBar) element.
+4. Starts observing [content](#content) and [wrapper](#wrapper) elements.
+5. Adds the internal scroll event listener to [scrollBar](#scrollBar).
 
-- #### `destroy()`
-  Stops observing the Fade Scroller elements and removes built-in event listeners and styles
+This will begin to add or remove CSS classes on the [wrapper](#wrapper) element in response to scrolling or size changes.
 
-- #### `addScrollListener( callback: EventListener )`
-  Add a `scroll` EventListener to the [`scrollBar`](#scrollbar) element
+> [!TIP]
+> The `mount()` method returns `this` so you can construct a new Fade Scroller and then immediately mount it in a single assignment:
+> ```ts
+> const scroller = new FadeScroll.Horizontal('.selector').mount();
+>
+> console.log(scroller instanceof FadeScroll.Horizontal); // true
+> ```
 
-- #### `removeScrollListener( callback: EventListener )`
-  Remove a `scroll` EventListener from the [`scrollBar`](#scrollbar) element
+---
+
+#### `destroy()`
+1. Removes the internal scroll event listener from [scrollBar](#scrollBar).
+2. Stops observing [content](#content) and [wrapper](#wrapper) elements.
+3. Removes the FadeScroll CSS classes.
+4. Moves the [content](#content) element to its original position in the DOM.
+5. Removes [wrapper](#wrapper) and [scrollBar](#scrollBar) from the DOM.
+
+> [!TIP]
+> A destroyed Fade Scroller can be mounted again by calling [`mount()`](#mount)
 
 ---
 
 ## Browser Compatibility
 
-Fade Scroll uses [CSS masks](https://caniuse.com/css-masks) to blend seamlessly with any background, however the CSS can be changed to use [linear gradients](https://caniuse.com/css-gradients) for better compatibility if the background is a solid color.
+The [Fade Scroll demo](https://brybrant.github.io/fade-scroll/) uses [CSS masks](https://caniuse.com/css-masks), but you may use [linear gradients](https://caniuse.com/css-gradients) for better compatibility if the background is a solid color.
 
-Fade Scroll uses the [Resize Observer API](https://caniuse.com/resizeobserver) to apply the correct styles when the elements sizes change. You can [Ponyfill](https://ponyfill.com/) for unsupporting browsers by using the `setResizeObserver` function:
+Fade Scroll requires the [`ResizeObserver` API](https://caniuse.com/resizeobserver). Browsers without native support must provide a ponyfill using `setResizeObserver()` **before constructing any scrollers**:
 
 ```js
-import { ResizeObserver as Polyfill } from '@juggle/resize-observer';
+import { ResizeObserver as Ponyfill } from '@juggle/resize-observer';
 
 import * as FadeScroll from '@brybrant/fade-scroll';
 
-FadeScroll.setResizeObserver(Polyfill);
+FadeScroll.setResizeObserver(Ponyfill);
 
-// Create some Fade Scrollers after setting the polyfill...
+// Create some Fade Scrollers **after** setting the ponyfill...
 ```

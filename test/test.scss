@@ -1,0 +1,26 @@
+*, :before, :after {
+  box-sizing: border-box;
+}
+
+html {
+  background: gray;
+}
+
+.fade-scroll {
+  width: 100px;
+  height: 100px;
+  margin: 20px 0 0;
+  background: #fff;
+}
+
+#horizontal {
+  width: 150px;
+  height: 100px;
+  background: green;
+}
+
+#vertical {
+  width: 100px;
+  height: 150px;
+  background: yellow;
+}

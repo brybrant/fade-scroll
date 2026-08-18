@@ -1,40 +1,14 @@
-/** @access private */
-class FauxResizeObserver {
-  private _request: number;
+/** Feature detection: `true` if `ResizeObserver` API exists */
+const nativeResizeObserver: boolean =
+  typeof window !== 'undefined' && 'ResizeObserver' in window;
 
-  protected readonly _callback: FrameRequestCallback;
-
-  constructor(callback: FrameRequestCallback) {
-    this._request = 0;
-    this._callback = callback;
-  }
-
-  disconnect() {}
-
-  observe() {
-    window.cancelAnimationFrame(this._request);
-    this._request = window.requestAnimationFrame(this._callback);
-  }
-
-  unobserve() {}
-}
-
-/** @access private */
-const resizeObserverSupported: boolean = 'ResizeObserver' in window;
-
-/** @access private */
-export let resizeObserver = (function () {
-  if (resizeObserverSupported) return window.ResizeObserver;
-
-  return FauxResizeObserver;
-})();
+export let ResizeObserverClass = nativeResizeObserver ? ResizeObserver : null;
 
 /**
  * Set the `ResizeObserver` polyfill
- * @param {ResizeObserver} polyfill
- * @access public
+ * @param polyfill User provided polyfill for `ResizeObserver` API
  */
-export function setResizeObserver(polyfill: ResizeObserver) {
-  if (resizeObserverSupported) return;
-  if (typeof polyfill === 'function') resizeObserver = polyfill;
+export function setResizeObserver(polyfill: typeof ResizeObserver) {
+  if (nativeResizeObserver) return;
+  ResizeObserverClass = polyfill;
 }

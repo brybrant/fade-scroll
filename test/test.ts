@@ -1,0 +1,328 @@
+import { resolve } from 'node:path';
+import { expect, test } from '@playwright/test';
+
+import { createFileLoader } from '../utils/file-loader.ts';
+import { Rewriter } from '../utils/rewriter.ts';
+
+import type {
+  Horizontal,
+  Vertical,
+  setResizeObserver,
+} from '@brybrant/fade-scroll';
+
+type FadeScrollerAPI = {
+  Horizontal: typeof Horizontal;
+  Vertical: typeof Vertical;
+  setResizeObserver: typeof setResizeObserver;
+};
+
+declare global {
+  interface Window {
+    getState: (
+      scroller: Horizontal | Vertical,
+      horizontal?: boolean,
+    ) => {
+      contentPerpendicular: number;
+      wrapperPerpendicular: number;
+      position: number;
+      overflow: number;
+      start: boolean;
+      end: boolean;
+    };
+    nextFrame: () => Promise<void>;
+    ResizeObserverPolyfill: { ResizeObserver: typeof ResizeObserver };
+    FadeScroll: FadeScrollerAPI;
+    horizontal: Horizontal;
+    vertical: Vertical;
+  }
+}
+
+const cwd = process.cwd();
+
+const load = createFileLoader(resolve(cwd, 'test'));
+
+const rewriter = new Rewriter(load);
+
+const html = await load('./test.html').then(async ({ data }) => {
+  data = await rewriter.transform(data);
+
+  return data;
+});
+
+test('Fade Scroller', async ({ page }) => {
+  await page.setContent(html);
+
+  await test.step('Ponyfill', async () => {
+    const hasResizeObserver = await page.evaluate(() => {
+      window.FadeScroll.setResizeObserver(
+        window.ResizeObserverPolyfill.ResizeObserver,
+      );
+
+      return typeof window.ResizeObserver !== 'undefined';
+    });
+
+    expect(hasResizeObserver).toBe(true);
+  });
+
+  await test.step('Constructor (element)', async () => {
+    await page.evaluate(() => {
+      window.horizontal = new window.FadeScroll.Horizontal(
+        /* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */
+        document.getElementById('horizontal')!,
+      );
+    });
+  });
+
+  await test.step('Constructor (selector)', async () => {
+    await page.evaluate(() => {
+      window.vertical = new window.FadeScroll.Vertical('#vertical');
+    });
+  });
+
+  await test.step('Constructor (invalid)', async () => {
+    const threw = await page.evaluate(() => {
+      try {
+        new window.FadeScroll.Horizontal('.undefined');
+        return false;
+      } catch {
+        return true;
+      }
+    });
+
+    expect(threw).toBe(true);
+  });
+
+  const axes = ['horizontal', 'vertical'] as const;
+
+  for (const axis of axes) {
+    const horizontal = axis === 'horizontal';
+
+    const data = {
+      horizontal,
+      axis,
+      resize: horizontal ? 'width' : 'height',
+      scroll: horizontal ? 'scrollLeft' : 'scrollTop',
+      hide: horizontal ? 'height' : 'width',
+    } as const;
+
+    await test.step(`Lifecycle (mount) - ${axis}`, async () => {
+      const mounted = await page.evaluate((params) => {
+        window[params.axis].mount();
+
+        return window[params.axis].wrapper.parentElement !== null;
+      }, data);
+
+      expect(mounted).toBe(true);
+    });
+
+    await test.step(`Lifecycle (destroy) - ${axis}`, async () => {
+      const destroyed = await page.evaluate((params) => {
+        window[params.axis].destroy();
+
+        return window[params.axis].wrapper.parentElement === null;
+      }, data);
+
+      expect(destroyed).toBe(true);
+    });
+
+    await test.step(`Lifecycle (re-mount) - ${axis}`, async () => {
+      const mounted = await page.evaluate((params) => {
+        window[params.axis].mount();
+
+        return window[params.axis].wrapper.parentElement !== null;
+      }, data);
+
+      expect(mounted).toBe(true);
+    });
+
+    await test.step(`Overflow (start) - ${axis}`, async () => {
+      const state = await page.evaluate(async (params) => {
+        const scroller = window[params.axis];
+
+        scroller.scrollBar[params.scroll] = 0;
+
+        await window.nextFrame();
+
+        return window.getState(window[params.axis]);
+      }, data);
+
+      expect(state.position).toBe(0);
+      expect(state.start).toBe(false);
+      expect(state.end).toBe(true);
+    });
+
+    await test.step(`Overflow (middle) - ${axis}`, async () => {
+      const state = await page.evaluate(async (params) => {
+        const scroller = window[params.axis];
+
+        scroller.scrollBar[params.scroll] = scroller.overflowSize / 2;
+
+        await window.nextFrame();
+
+        return window.getState(scroller);
+      }, data);
+
+      expect(state.position).toBe(25);
+      expect(state.start).toBe(true);
+      expect(state.end).toBe(true);
+    });
+
+    await test.step(`Overflow (end) - ${axis}`, async () => {
+      const state = await page.evaluate(async (params) => {
+        const scroller = window[params.axis];
+
+        scroller.scrollBar[params.scroll] = scroller.overflowSize;
+
+        await window.nextFrame();
+
+        const state = window.getState(scroller);
+
+        scroller.scrollBar[params.scroll] = 0;
+
+        await window.nextFrame();
+
+        return state;
+      }, data);
+
+      expect(state.position).toBe(50);
+      expect(state.start).toBe(true);
+      expect(state.end).toBe(false);
+    });
+
+    await test.step(`Resize (content) - ${axis}`, async () => {
+      const state = await page.evaluate(async (params) => {
+        const scroller = window[params.axis];
+
+        scroller.content.style[params.resize] = '50px';
+
+        await window.nextFrame();
+
+        const state = window.getState(scroller);
+
+        scroller.content.style[params.resize] = '';
+
+        await window.nextFrame();
+
+        return state;
+      }, data);
+
+      expect(state.overflow).toBe(-50);
+      expect(state.start).toBe(false);
+      expect(state.end).toBe(false);
+    });
+
+    await test.step(`Resize (wrapper) - ${axis}`, async () => {
+      const state = await page.evaluate(async (params) => {
+        const scroller = window[params.axis];
+
+        scroller.wrapper.style[params.resize] = '50px';
+
+        await window.nextFrame();
+
+        const state = window.getState(scroller);
+
+        scroller.wrapper.style[params.resize] = '';
+
+        await window.nextFrame();
+
+        return state;
+      }, data);
+
+      expect(state.overflow).toBe(100);
+      expect(state.start).toBe(false);
+      expect(state.end).toBe(true);
+    });
+
+    await test.step(`Hide scrollbar - ${axis}`, async () => {
+      const hidden = await page.evaluate(async (params) => {
+        const scroller = window[params.axis];
+
+        const startState = window.getState(scroller, params.horizontal);
+
+        /** Scrollbar is ephemeral and therefore cannot be hidden */
+        if (
+          startState.contentPerpendicular === startState.wrapperPerpendicular
+        ) {
+          return true;
+        }
+
+        scroller.hideScrollbar = true;
+
+        await window.nextFrame();
+
+        const endState = window.getState(scroller, params.horizontal);
+
+        return endState.contentPerpendicular === endState.wrapperPerpendicular;
+      }, data);
+
+      expect(hidden).toBe(true);
+    });
+
+    await test.step(`Custom scroll listener - ${axis}`, async () => {
+      const values = await page.evaluate((params) => {
+        const scroller = window[params.axis];
+
+        let i = 0;
+
+        const scrollListener = () => i++;
+
+        scroller.addScrollListener(scrollListener);
+
+        scroller.scrollBar.dispatchEvent(new Event('scroll'));
+
+        const a = i;
+
+        scroller.removeScrollListener(scrollListener);
+
+        scroller.scrollBar.dispatchEvent(new Event('scroll'));
+
+        return [a, i];
+      }, data);
+
+      expect(values[0]).toBe(1);
+      expect(values[1]).toBe(1);
+    });
+  }
+
+  await test.step(`Wheel capture - (horizontal only)`, async () => {
+    const positions = await page.evaluate(async () => {
+      const scroller = window.horizontal;
+
+      scroller.captureWheel = true;
+
+      scroller.scrollBar.dispatchEvent(new WheelEvent('wheel', { deltaX: 1 }));
+
+      await window.nextFrame();
+
+      const position1 = scroller.scrollPosition;
+
+      scroller.scrollBar.dispatchEvent(new WheelEvent('wheel', { deltaY: 1 }));
+
+      await window.nextFrame();
+
+      const position2 = scroller.scrollPosition;
+
+      scroller.captureWheel = false;
+
+      /**
+       * Note: Changing `deltaX` here seems to only affect `scrollPosition` in
+       * the `webkit` browser. This is technically the correct behavior.
+       */
+      scroller.scrollBar.dispatchEvent(new WheelEvent('wheel', { deltaY: 1 }));
+
+      await window.nextFrame();
+
+      const position3 = scroller.scrollPosition;
+
+      scroller.scrollBar.scrollLeft = 0;
+
+      await window.nextFrame();
+
+      return [position1, position2, position3];
+    });
+
+    expect(positions[0]).toBe(1);
+    expect(positions[1]).toBe(2);
+    expect(positions[2]).toBe(2);
+  });
+});

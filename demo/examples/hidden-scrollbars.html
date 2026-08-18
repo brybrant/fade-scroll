@@ -1,0 +1,41 @@
+<h2>
+  <a href='@github/demo/examples/hidden-scrollbars.html'>Hidden Scrollbars</a>
+</h2>
+
+<p>To hide the scrollbar, set&nbsp;<code>hideScrollbar: true</code> in the&nbsp;options.</p>
+
+<div class='grid grid--gutter'>
+  <div class='grid__item'>
+    <h3>Horizontal</h3>
+
+    <div class='example-container'>
+      <div id='h-hide'>
+        <p class='horizontal-text'>Horizontal Fade Scroller</p>
+      </div>
+    </div>
+  </div>
+
+  <div class='grid__item'>
+    <h3>Vertical</h3>
+
+    <div class='example-container'>
+      <div id='v-hide'>
+        <p class='vertical-text'>Vertical Fade Scroller</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  var hideHorizontal = new FadeScroll.Horizontal('#h-hide').mount();
+
+  hideHorizontal.hideScrollbar = true;
+
+  var hideVertical = new FadeScroll.Vertical('#v-hide').mount();
+
+  hideVertical.hideScrollbar = true;
+})();
+</script>
+
+<p>But how to scroll sideways without a visible scrollbar? Some&nbsp;input devices come with a mechanism to scroll sideways &mdash; otherwise the <em>&ldquo;usual&rdquo;</em> way to scroll sideways is by holding the <strong>Shift</strong>&nbsp;key while spinning the mouse&nbsp;wheel, but there is another&nbsp;way&hellip;</p>

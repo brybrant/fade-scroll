@@ -1,71 +1,56 @@
-import type { FadeScrollOptionsV } from './OptionsVertical';
-
 import {
+  classFadeScroll,
+  classFadeScrollScrollbar,
+  classFadeScrollContent,
   FadeScroller,
-  setOptions,
-  smoothScrollSupported,
+  prependStyle,
+  scroll,
 } from './FadeScroller';
-import { optionsVertical } from './OptionsVertical';
 
-/**
- * Vertical Fade Scroller
- * @access public
- */
+const styleRules = `.${classFadeScroll}--vertical{height:100%}.${classFadeScroll}--vertical>.${classFadeScrollScrollbar}{overflow-y:scroll}.${classFadeScroll}--vertical>.${classFadeScrollScrollbar}>.${classFadeScrollContent}{width:100%;height:auto}`;
+
+let style: HTMLStyleElement | undefined;
+
+/** Vertical Fade Scroller */
 export class Vertical extends FadeScroller {
-  readonly options: FadeScrollOptionsV;
-
-  readonly _fadeStart: 'top-overflow';
-
-  readonly _fadeEnd: 'bottom-overflow';
-
   /**
    * Creates a Vertical Fade Scroller
-   * @param {HTMLElement | string} element
-   * @param {FadeScrollOptionsV} [options]
+   * @param element (Will become {@link content})
    */
-  constructor(element: HTMLElement | string, options?: FadeScrollOptionsV) {
-    super(element);
+  constructor(element: HTMLElement | string) {
+    super(element, 'vertical');
 
-    this.wrapper.classList.add('fade-scroll--vertical');
+    if (!style) style = document.createElement('style');
 
-    this._fadeStart = 'top-overflow';
-    this._fadeEnd = 'bottom-overflow';
-
-    this.options = optionsVertical(this);
-
-    if (options !== undefined) setOptions(this, options);
+    prependStyle(style, styleRules);
   }
 
-  /** - Height of `content` element */
-  public get contentSize() {
-    return this.content.offsetHeight;
+  /** @returns Height of {@link content} minus height of {@link wrapper} */
+  public get overflowSize() {
+    return this.content.offsetHeight - this.wrapper.offsetHeight;
   }
 
-  /** - Height of `wrapper` element */
-  public get wrapperSize() {
-    return this.wrapper.offsetHeight;
-  }
-
-  /** - `scrollTop` value of `scrollBar` element */
+  /** @returns `scrollTop` value of {@link scrollBar} */
   public get scrollPosition() {
-    return Math.ceil(this.scrollBar.scrollTop);
+    return this.scrollBar.scrollTop;
   }
 
-  /** - `scrollTop` value of `scrollBar` element */
-  public set scrollPosition(number: number) {
-    if (smoothScrollSupported) {
-      this.scrollBar.scroll({
-        top: number,
-        behavior: 'smooth',
-      });
+  /** @param position `scrollTop` value of {@link scrollBar} */
+  public set scrollPosition(position: number) {
+    scroll(this.scrollBar, 'top', 'scrollTop', position);
+  }
+
+  /** Hide the scrollbar? */
+  public set hideScrollbar(hide: boolean) {
+    if (!this._mounted) return;
+
+    if (hide && this.scrollBar.style.width === '') {
+      const scrollbarWidth =
+        this.wrapper.offsetWidth - this.content.offsetWidth;
+
+      this.scrollBar.style.width = `calc(100% + ${scrollbarWidth}px)`;
     } else {
-      this.scrollBar.scrollTop = number;
+      this.scrollBar.style.width = '';
     }
-  }
-
-  public destroy() {
-    this.scrollBar.removeEventListener('scroll', this.scrollListener);
-    this.wrapper.classList.remove(this._fadeStart, this._fadeEnd);
-    this._observer.disconnect();
   }
 }

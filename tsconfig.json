@@ -1,10 +1,14 @@
 {
   "compilerOptions": {
-    "declaration": true,
-    "emitDeclarationOnly": true,
+    "allowImportingTsExtensions": true,
+    "allowSyntheticDefaultImports": true,
+    "declaration": false,
+    "module": "Preserve",
     "moduleResolution": "Bundler",
+    "noEmit": true,
     "strict": true,
-    "target": "ES6"
+    "target": "ESNext",
+    "verbatimModuleSyntax": true
   },
-  "include": ["./src/**/*.ts"]
+  "include": ["**/*.ts"]
 }

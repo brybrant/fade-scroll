@@ -1,0 +1,26 @@
+<h3>
+  <a href='@github/demo/examples/breadcrumb.html'>Breadcrumb Navigation</a>
+</h3>
+
+<div class='margin-top'>
+  <div id='breadcrumb'>
+    <div class='grid grid--inline'>
+      <div class='breadcrumb'>Home</div>
+      <div class='breadcrumb'>Code</div>
+      <div class='breadcrumb'>Web Development</div>
+      <div class='breadcrumb'>JavaScript</div>
+      <div class='breadcrumb'>Front-End</div>
+      <div class='breadcrumb'>Fade Scroll</div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  var breadcrumbScroller = new FadeScroll.Horizontal('#breadcrumb').mount();
+
+  breadcrumbScroller.captureWheel = breadcrumbScroller.hideScrollbar = true;
+
+  breadcrumbScroller.scrollPosition = 0;
+})();
+</script>
