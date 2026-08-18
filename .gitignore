@@ -2,5 +2,7 @@ node_modules
 dist/*
 !dist/fade-scroll.css
 !dist/fade-scroll--legacy.css
+playwright-report
+test-results
 .stylelintcache
 .eslintcache
