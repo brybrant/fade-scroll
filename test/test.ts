@@ -51,6 +51,8 @@ const html = await load('./test.html').then(async ({ data }) => {
 test('Fade Scroller', async ({ page }) => {
   await page.setContent(html);
 
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+
   await test.step('Constructor (element)', async () => {
     await page.evaluate(() => {
       window.horizontal = new window.FadeScroll.Horizontal(
