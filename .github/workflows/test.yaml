@@ -13,7 +13,7 @@ jobs:
           package-manager-cache: false
       - run: npm ci
       - run: node ./build.ts
-      - run: npx playwright install --with-deps
+      - uses: dtinth/setup-playwright-test-docker@main
       - run: npx playwright test
       - uses: actions/upload-artifact@v7
         with:
