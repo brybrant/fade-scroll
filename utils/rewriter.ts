@@ -1,7 +1,7 @@
 import { pathToFileURL } from 'node:url';
 
 import { minify } from 'html-minifier-next';
-import { compileString } from 'sass-embedded';
+import { compileString } from 'sass';
 import { optimize } from 'svgo';
 
 import lightningcssConfig from '@brybrant/lightningcss-config';
