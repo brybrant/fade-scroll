@@ -95,7 +95,7 @@ export class Rewriter {
   async replace(
     html: string,
     pattern: RegExp,
-    callback: (...args: string[]) => string | Promise<string>,
+    callback: (...args: string[]) => Promise<string>,
   ) {
     const matches = [...html.matchAll(pattern)];
 

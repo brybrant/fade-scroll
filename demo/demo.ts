@@ -32,7 +32,7 @@ const html = await load('./demo.html').then(async ({ data }) => {
   data = await rewriter.transform(data);
 
   data = await rewriter.replace(data, /<!--\s*@github\s*-->/g, () => {
-    return `
+    return Promise.resolve(`
       <a
         class='github'
         href='${github}'
@@ -41,11 +41,13 @@ const html = await load('./demo.html').then(async ({ data }) => {
       >
         ${GitHubSVG}
       </a>
-    `;
+    `);
   });
 
   data = await rewriter.replace(data, githubLink, (_, path) => {
-    return `href='${github}/blob/master${path}' target='_blank'`;
+    return Promise.resolve(
+      `href='${github}/blob/master${path}' target='_blank'`,
+    );
   });
 
   return rewriter.minify(data);
