@@ -1,6 +1,7 @@
 node_modules
-dist
-!dist/fade-scroll.css
-!dist/fade-scroll--legacy.css
+dist/*.ts
+dist/*.js
+dist/*.cjs
+dist/*.html
 .stylelintcache
 .eslintcache

@@ -1,0 +1,47 @@
+.fade-scroll {
+  position: relative;
+}
+
+.fade-scroll:before, .fade-scroll:after {
+  position: absolute;
+}
+
+.fade-scroll.fade-scroll--fade-start:before,
+.fade-scroll.fade-scroll--fade-end:after {
+  content: '';
+}
+
+.fade-scroll--horizontal:before, .fade-scroll--vertical:before {
+  top: -24px;
+  left: -24px;
+}
+
+.fade-scroll--horizontal:after, .fade-scroll--vertical:after {
+  right: -24px;
+  bottom: -24px;
+}
+
+.fade-scroll--horizontal:before, .fade-scroll--horizontal:after {
+  top: -24px;
+  bottom: -24px;
+  width: 48px;
+  background: linear-gradient(
+    90deg,
+    /* Change these colors to match the background color of your website */
+    rgba(0,0,0,0),
+    #000,
+    rgba(0,0,0,0)
+  );
+}
+
+.fade-scroll--vertical:before, .fade-scroll--vertical:after {
+  right: -24px;
+  left: -24px;
+  height: 48px;
+  background: linear-gradient(
+    /* Change these colors to match the background color of your website */
+    rgba(0,0,0,0),
+    #000,
+    rgba(0,0,0,0)
+  );
+}
