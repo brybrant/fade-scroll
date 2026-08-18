@@ -59,7 +59,7 @@
 
   var toc = new FadeScroll.Vertical(tocElement).mount();
 
-  content.addScrollListener(function(event) {
+  content.scrollBar.addEventListener('scroll', function(event) {
     for (var i = 0; i < links.length; i++) {
       links[i].classList.remove('active');
     }
