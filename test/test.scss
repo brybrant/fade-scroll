@@ -6,10 +6,13 @@ html {
   background: gray;
 }
 
+body {
+  margin: 0;
+}
+
 .fade-scroll {
   width: 100px;
   height: 100px;
-  margin: 20px 0 0;
   background: #fff;
 }
 

@@ -247,46 +247,46 @@ test('Fade Scroller', async ({ page }) => {
   }
 
   await test.step(`Wheel capture - (horizontal only)`, async () => {
-    const positions = await page.evaluate(async () => {
+    await page.mouse.move(50, 50);
+
+    await page.evaluate(() => {
       const scroller = window.horizontal;
 
-      scroller.scrollBar.scrollLeft = 0;
-
       scroller.captureWheel = true;
+    });
 
-      scroller.scrollBar.dispatchEvent(new WheelEvent('wheel', { deltaX: 1 }));
+    await page.mouse.wheel(1, 0);
 
+    const position1 = await page.evaluate(async () => {
       await window.nextFrame();
 
-      const position1 = scroller.scrollPosition;
+      return window.horizontal.scrollPosition;
+    });
 
-      scroller.scrollBar.dispatchEvent(new WheelEvent('wheel', { deltaY: 1 }));
+    expect(position1).toBe(1);
 
+    await page.mouse.wheel(0, 1);
+
+    const position2 = await page.evaluate(async () => {
       await window.nextFrame();
 
-      const position2 = scroller.scrollPosition;
+      const scroller = window.horizontal;
 
       scroller.captureWheel = false;
 
-      /**
-       * Note: Changing `deltaX` here seems to only affect `scrollPosition` in
-       * the `webkit` browser. This is technically the correct behavior.
-       */
-      scroller.scrollBar.dispatchEvent(new WheelEvent('wheel', { deltaY: 1 }));
-
-      await window.nextFrame();
-
-      const position3 = scroller.scrollPosition;
-
-      scroller.scrollBar.scrollLeft = 0;
-
-      await window.nextFrame();
-
-      return [position1, position2, position3];
+      return scroller.scrollPosition;
     });
 
-    expect(positions[0]).toBe(1);
-    expect(positions[1]).toBe(2);
-    expect(positions[2]).toBe(2);
+    expect(position2).toBe(2);
+
+    await page.mouse.wheel(0, 1);
+
+    const position3 = await page.evaluate(async () => {
+      await window.nextFrame();
+
+      return window.horizontal.scrollPosition;
+    });
+
+    expect(position3).toBe(2);
   });
 });
