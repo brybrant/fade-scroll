@@ -14,8 +14,8 @@ The `options` parameter has been removed.
 **Before:**
 ```ts
 new Horizontal(element, {
-  hideScrollbar: true,
   captureWheel: true,
+  hideScrollbar: true,
 });
 ```
 
@@ -23,8 +23,11 @@ new Horizontal(element, {
 ```ts
 const scroller = new Horizontal(element);
 
-scroller.hideScrollbar = true;
 scroller.captureWheel = true;
+
+scroller.mount();
+
+scroller.hideScrollbar = true;
 ```
 
 The previous options system was unnecessarily complicated for the small number of configurable properties. Configuration is now exposed directly through setters on the scroller instance.
