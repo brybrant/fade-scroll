@@ -130,6 +130,8 @@ scroller.addScrollListener(() => {});
 scroller.scrollBar.addEventListener('scroll', () => {});
 ```
 
+---
+
 ### `FauxResizeObserver` has been removed
 
 The no-op `FauxResizeObserver` fallback has been removed.
