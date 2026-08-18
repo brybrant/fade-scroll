@@ -29,6 +29,8 @@ scroller.captureWheel = true;
 
 The previous options system was unnecessarily complicated for the small number of configurable properties. Configuration is now exposed directly through setters on the scroller instance.
 
+---
+
 ### Explicit lifecycle start with `mount()`
 
 Constructing a `Horizontal` or `Vertical` scroller no longer immediately modifies the DOM.
@@ -49,11 +51,13 @@ scroller.mount();
 
 The constructor now only validates and stores the content element and creates the required internal elements.
 
-This allows a scroller to be constructed before its content element is ready to be inserted into the DOM. This is particularly useful in component-based environments such as React, Solid, Vue, etc.
+This allows a scroller to be constructed before the DOM is ready to be modified. This is particularly useful in component-based environments such as React, Solid, Vue, etc.
 
 `mount()` performs the DOM modification and begins operation.
 
-#### `destroy()` now completely unmounts the scroller
+---
+
+### `destroy()` now completely unmounts the scroller
 
 `destroy()` has been redesigned to reverse the work performed by `mount()`.
 
@@ -72,6 +76,8 @@ scroller.mount();
 
 This makes the lifecycle explicitly reversible.
 
+---
+
 ### CSS is now injected automatically
 
 Version 2 no longer requires users to separately import the core CSS required for FadeScroll to function.
@@ -84,6 +90,8 @@ The style elements are reused rather than creating a new `<style>` element for e
 
 > [!WARNING]
 > Only the necessary styles are injected. You must still provide your own CSS mask styles to fade the overflow. An example of these styles can be found in [fade-scroll.css](./dist/fade-scroll.css)
+
+---
 
 ### The `contentSize` and `wrapperSize` getters have been removed
 
@@ -106,6 +114,8 @@ scroller.content.offsetHeight;
 scroller.wrapper.offsetHeight;
 ```
 
+---
+
 ### The `addScrollListener()` and `removeScrollListener()` methods have been removed
 
 These methods were practically redundant. The `scrollBar` element is available as a property if you wish to add or remove your own event listeners:
@@ -127,6 +137,8 @@ The no-op `FauxResizeObserver` fallback has been removed.
 > [!IMPORTANT]
 > If the browser does not provide `ResizeObserver` then you must provide a ponyfill using `setResizeObserver()` **before** mounting a scroller. Check [caniuse](https://caniuse.com/resizeobserver) for browser support details.
 
+---
+
 ## Internal changes
 
 ### Smooth scrolling now respects `prefers-reduced-motion`
@@ -135,11 +147,15 @@ The `scrollPosition` setter previously always requested `behavior: 'smooth'` reg
 
 Version 2 checks the user's `prefers-reduced-motion` preference and falls back to immediate scrolling when reduced motion is requested.
 
+---
+
 ### Horizontal wheel capture has changed
 
 The wheel event handler has been improved to account for both `deltaX` and `deltaY`, using whichever represents the dominant wheel movement.
 
 This translates vertical mouse-wheel input to horizontal, while also supporting horizontal wheel/trackpad input.
+
+---
 
 ### Lifecycle moved to `FadeScroller` class
 
@@ -147,11 +163,15 @@ Previously, the `destroy()` method was implemented differently by `Horizontal` a
 
 Now both `mount()` and `destroy()` lifecycle implementations are consolidated into the base `FadeScroller` class. This eliminates duplicated lifecycle code while allowing `Horizontal` and `Vertical` to contain only behavior specific to their respective orientations.
 
+---
+
 ### `scrollPosition` is no longer rounded
 
 The `Math.ceil()` previously used by `scrollPosition` has been removed. This was meant to compensate for the discrepancy observed between maximum `scrollPosition` and `overflowSize`.
 
 The getter now retrieves the element's native scroll position value. Rounding is only performed internally when determining whether the start/end fade classes should be applied, avoiding sub-pixel discrepancies between the reported scroll position and calculated overflow.
+
+---
 
 ### `ResizeObserver` is now shared
 
@@ -162,4 +182,4 @@ Version 2 uses a single shared observer and associates observed elements with th
 This reduces the number of `ResizeObserver` instances when multiple scrollers are present.
 
 > [!NOTE]
-> The resize callback deduplicates scrollers when both their content and wrapper elements are resized simultaneously, preventing the same scroller from being updated twice unnecessarily.
+> The `ResizeObserver` callback deduplicates scrollers when both their content and wrapper elements are resized simultaneously, preventing the same scroller from being updated twice unnecessarily.
