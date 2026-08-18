@@ -1,6 +1,6 @@
 # Fade Scroll
 
-[<img src='https://img.shields.io/npm/v/%40brybrant%2Ffade-scroll'>](https://www.npmjs.com/package/@brybrant/fade-scroll) <img src='https://img.shields.io/bundlejs/size/%40brybrant%2Ffade-scroll?exports=Horizontal%2CVertical&format=minzip'>
+[<img src='https://img.shields.io/npm/v/%40brybrant%2Ffade-scroll'>](https://www.npmjs.com/package/@brybrant/fade-scroll) <img src='https://img.shields.io/bundlejs/size/%40brybrant%2Ffade-scroll?exports=Horizontal%2CVertical&format=minzip'> [<img src='https://img.shields.io/github/actions/workflow/status/brybrant/fade-scroll/test.yaml?logo=github&logoColor=fff&label=Playwright%20Tests'>](https://github.com/brybrant/fade-scroll/actions/workflows/test.yaml)
 
 Fade Scroll is a cosmetic module which adds subtle gradient masks to the overflow of scrollable content.
 
