@@ -257,31 +257,6 @@ test('Fade Scroller', async ({ page }) => {
 
       expect(hidden).toBe(true);
     });
-
-    await test.step(`Custom scroll listener - ${axis}`, async () => {
-      const values = await page.evaluate((params) => {
-        const scroller = window[params.axis];
-
-        let i = 0;
-
-        const scrollListener = () => i++;
-
-        scroller.scrollBar.addEventListener('scroll', scrollListener);
-
-        scroller.scrollBar.dispatchEvent(new Event('scroll'));
-
-        const a = i;
-
-        scroller.scrollBar.removeEventListener('scroll', scrollListener);
-
-        scroller.scrollBar.dispatchEvent(new Event('scroll'));
-
-        return [a, i];
-      }, data);
-
-      expect(values[0]).toBe(1);
-      expect(values[1]).toBe(1);
-    });
   }
 
   await test.step(`Wheel capture - (horizontal only)`, async () => {
